@@ -7,7 +7,7 @@ image: /wp-content/uploads/2012/10/snapraid-e1472738450340.png
 categories: [fileserver, home, linux, snapraid, ubuntu]
 ---
 
-![Home Media Fileserver](http://zackreed.me/wp-content/uploads/2016/08/QjO0wft.jpg)Home Media Fileserver in Norco 4224 Case
+![Home Media Fileserver](/wp-content/uploads/2016/08/QjO0wft.jpg)Home Media Fileserver in Norco 4224 Case
 
 </div>I have SnapRAID setup to create a super flexible, reliable bulk media server. I have used SnapRAID for years across numerous versions of Ubuntu and a plethora of hardware. SnapRAID has been so reliable that I have updated hardware four times since I originally set it up, migrated through many versions of SnapRAID, added many data disks, added parity levels, and replaced disks all without issue. All the while, it’s been super flexible and an awesome way to manage my bulk media. I currently have a [ridiculously over the top server that you can read more about here](/new-home-server/). On it, I use three parity disks and 21 data disks.
 
@@ -211,7 +211,7 @@ Finally, I wanted something to pool these disks together. There are four options
 
 **4. This is what I use** Finally, a solution that performs well and is easy to use. [MergerFS](/mergerfs-another-good-option-to-pool-your-snapraid-disks/) (the solution I’m currently using). This is a FUSE based solution, but it’s fast and has create modes like AUFS. It’s also easy to install and requires no compiling unlike AUFS to get it working. This is what I use now, and it’s great and actively developed.
 
-After choosing one of the options above, you should now have a mount point at /storage that is pooling all of your disks into one large volume. You’ll still want to setup a [UPS](/installing-nut-on-ubuntu/) and [SMART](http://zackreed.me/how-do-i-know-if-my-hard-drive-is-failing/) monitoring for your disks. Another thing I did was write up a simple BASH script to watch my disk usage, and email me if a disk gets over 90% used, so I can add another disk to the array.
+After choosing one of the options above, you should now have a mount point at /storage that is pooling all of your disks into one large volume. You’ll still want to setup a [UPS](/installing-nut-on-ubuntu/) and [SMART](/how-do-i-know-if-my-hard-drive-is-failing/) monitoring for your disks. Another thing I did was write up a simple BASH script to watch my disk usage, and email me if a disk gets over 90% used, so I can add another disk to the array.
 
 Next, I would strongly suggest you read my other articles to setup [email](/send-system-email-with-gmail-and-ssmtp/) for monitoring, [SMART information monitoring](/how-do-i-know-if-my-hard-drive-is-failing/) , [spinning down disks](/spin-down-idle-hard-disks/), setting up a [UPS battery backup](/installing-nut-on-ubuntu/), and other raid array actions. Being able to cope with drives failing useful, but it’s nice to know that one has failed and be able to replace it too.
 

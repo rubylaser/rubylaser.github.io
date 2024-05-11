@@ -1,11 +1,9 @@
 ---
-id: 172
 title: 'Spin Down Idle Hard Disks Without /etc/hdparm.conf'
 date: '2014-02-04T08:00:00-05:00'
 layout: post
-guid: 'http://zackreed.me/spin-down-idle-hard-disks-without-hdparm/'
 permalink: /spin-down-idle-hard-disks-without-hdparm/
-image: /wp-content/uploads/2014/02/hard-drive-stop-220x162.jpg
+image: /wp-content/uploads/2014/02/hard-drive-stop.jpg
 categories: [disk, idle, ubuntu]
 ---
 

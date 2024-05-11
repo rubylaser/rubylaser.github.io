@@ -2,7 +2,6 @@
 title: 'Why I Moved from Hyper-V to ESXi at home'
 date: '2015-03-02T18:32:12-05:00'
 layout: post
-guid: 'http://zackreed.me/?p=227'
 permalink: /why-i-moved-from-hyper-v-to-esxi-at-home/
 image: /wp-content/uploads/2015/03/4RXzcD0.jpg
 categories: [home, esxi, virtualization]

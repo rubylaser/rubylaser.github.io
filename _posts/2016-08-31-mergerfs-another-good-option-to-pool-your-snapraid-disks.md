@@ -52,8 +52,8 @@ This would pool all mounts in /mnt/data and present them at /storage. This defau
 I ran a couple of tests tonight on my pooled SnapRAID array, and it appears that mergerfs is faster than mhddfs and just as fast as AUFS. Here’s the outcome of writing a 20GB file over Samba to the server and then reading a different 20GB file back. As the graphs show there is a little “breathing” on the transfers, but reading and writing have no problem saturating a gigabit connection over Samba (an impressive feat).
 
 **WRITE SPEED**  
-![z17QiLO](http://zackreed.me/wp-content/uploads/2015/10/z17QiLO.png)  
+![z17QiLO](/wp-content/uploads/2015/10/z17QiLO.png)  
 **Note:** There were times that this transfer exceeded 120MB/s, but it averaged around 105MB/s. Very impressive for a FUSE based pooling solution.  
 **READ SPEED**  
-![IsAVCSr](http://zackreed.me/wp-content/uploads/2015/10/IsAVCSr.png)  
+![IsAVCSr](/wp-content/uploads/2015/10/IsAVCSr.png)  
 **Note:** the 140MB/s shown here is faster than gigabit speeds, but it’s due to caching on my Macbook. The transfer averaged around 118MB/s.

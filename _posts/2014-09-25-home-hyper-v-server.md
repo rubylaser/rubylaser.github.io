@@ -2,7 +2,6 @@
 title: 'Home Hyper-V Server'
 date: '2014-09-25T18:27:07-04:00'
 layout: post
-guid: 'http://zackreed.me/?p=221'
 permalink: /home-hyper-v-server/
 image: /wp-content/uploads/2014/09/rQ9u2dF.jpg
 categories: [home, hyper-v, server, virtualization]

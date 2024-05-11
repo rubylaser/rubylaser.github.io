@@ -25,6 +25,12 @@ All of this is re-purposed gear or used gear. This setup works great and is a hu
 **ADDON:** Mellanox X-2 Connect 10GBe over fiber to my workstation upstairs  
 **ADDON:** Intel AXXRMM4(+Lite) Modules for iKVM
 
-This server hosts my files via SnapRAID + mergerfs, and employs Docker containers for a number of things including: [Crashplan, Plex, Plexpy, Unifi, etc](http://zackreed.me/docker-how-and-why-i-use-it/).
+This server hosts my files via SnapRAID + mergerfs, and employs Docker containers for a number of things including: [Crashplan, Plex, Plexpy, Unifi, etc](/docker-how-and-why-i-use-it/).
 
-![Home Server Overview](http://zackreed.me/wp-content/uploads/2016/08/5BTNT68-1024x683.jpg) ![Home Server View from Above](http://zackreed.me/wp-content/uploads/2016/08/06YXzBB-1024x683.jpg) ![Home Server 24 bays of storage!!!](http://zackreed.me/wp-content/uploads/2016/08/QjO0wft-1024x683.jpg) ![Home Server Supermicro Heatsinks for e5-2670's](http://zackreed.me/wp-content/uploads/2016/08/4b6czZ3-1024x683.jpg) ![Home Server H310s and Intel iKVM + RAM](http://zackreed.me/wp-content/uploads/2016/08/fi96C3f-1024x681.jpg) ![Home Server EVGA Supernova G2 PSU and Intel 730 SSDs](http://zackreed.me/wp-content/uploads/2016/08/UN0lqZX-1024x683.jpg) ![Home Server H310s Binking Lights](http://zackreed.me/wp-content/uploads/2016/08/gOSM4oa-1024x683.jpg)
+![Home Server Overview](/wp-content/uploads/2016/08/5BTNT68.jpg)
+![Home Server View from Above](/wp-content/uploads/2016/08/06YXzBB.jpg) 
+![Home Server 24 bays of storage!!!](/wp-content/uploads/2016/08/QjO0wft.jpg) 
+![Home Server Supermicro Heatsinks for e5-2670's](/wp-content/uploads/2016/08/4b6czZ3.jpg) 
+![Home Server H310s and Intel iKVM + RAM](/wp-content/uploads/2016/08/fi96C3f.jpg) 
+![Home Server EVGA Supernova G2 PSU and Intel 730 SSDs](/wp-content/uploads/2016/08/UN0lqZX.jpg) 
+![Home Server H310s Binking Lights](/wp-content/uploads/2016/08/gOSM4oa.jpg)

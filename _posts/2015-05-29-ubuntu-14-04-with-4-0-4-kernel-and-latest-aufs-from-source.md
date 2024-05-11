@@ -89,7 +89,7 @@ make menuconfig
 ```
 
 At this point, you will want to go to select AuFS under \*\*File Systems &gt; Miscellaneous filesystems\*\* Also, select the NFS export option. When you are done, it should look like this.  
-![ZEuhl43](http://zackreed.me/wp-content/uploads/2015/05/ZEuhl43.png)
+![ZEuhl43](/wp-content/uploads/2015/05/ZEuhl43.png)
 
 Then press exit a few times until you are out and save the changes.
 

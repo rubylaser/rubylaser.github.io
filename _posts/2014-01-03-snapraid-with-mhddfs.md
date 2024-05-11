@@ -2,7 +2,6 @@
 title: 'SnapRAID with mhddfs'
 date: '2014-01-03T08:00:00-05:00'
 layout: post
-guid: 'http://zackreed.me/snapraid-with-mhddfs/'
 permalink: /snapraid-with-mhddfs/
 image: /wp-content/uploads/2014/01/hard-drive-220x162.jpg
 categories: [fileserver, mediaserver, snapraid]

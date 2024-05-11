@@ -2,7 +2,6 @@
 title: 'MergerFS neat tricks'
 date: '2016-08-31T14:54:14-04:00'
 layout: post
-guid: 'http://zackreed.me/?p=311'
 permalink: /mergerfs-neat-tricks/
 image: /wp-content/uploads/2016/08/flexible-working-spring-mergerfs.jpg
 categories: [mergerfs, union]

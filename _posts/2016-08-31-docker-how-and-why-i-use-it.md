@@ -261,7 +261,7 @@ linuxserver/sonarr
 
 ### Unifi
 
-Finally Unifi. This uses Java again and requires a bunch of open ports, so this is a great thing to containerize. You can read about connecting your AP to the Unifi Controller in my [older article](http://zackreed.me/unifi-controller-on-docker/).
+Finally Unifi. This uses Java again and requires a bunch of open ports, so this is a great thing to containerize. You can read about connecting your AP to the Unifi Controller in my [older article](/unifi-controller-on-docker/).
 
 ```
 docker create \
