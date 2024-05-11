@@ -358,8 +358,8 @@ Or, you can even enter the container if you’d like to.
 docker exec -it crashplan /bin/bash
 ```
 
-This only scratches the surface of what you can do with Docker. It’s an awesome technology and I encourage you to check it out. Also, the people over at [linuxserver.io](https://www.linuxserver.io/) have a [huge list of awesome containers](http://tools.linuxserver.io/dockers) and are happy to assist with any issues you might have via their forums or IRC.
+This only scratches the surface of what you can do with Docker. It’s an awesome technology and I encourage you to check it out. Also, the people over at [linuxserver.io](https://www.linuxserver.io/) have a [huge list of awesome containers](https://tools.linuxserver.io/dockers) and are happy to assist with any issues you might have via their forums or IRC.
 
 **Permission denied on Docker**
 
-If you have all of your users and permissions set correctly, you may want to check if SELinux is causing the issue. You can read more about a possible solution [here](http://nanxiao.me/en/selinux-cause-permission-denied-issue-in-using-docker/).
+If you have all of your users and permissions set correctly, you may want to check if SELinux is causing the issue. You can read more about a possible solution [here](https://nanxiao.me/en/selinux-cause-permission-denied-issue-in-using-docker/).

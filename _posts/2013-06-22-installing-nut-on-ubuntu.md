@@ -8,7 +8,7 @@ categories: [nut]
 tags: [ups, protection, nut, linux]
 ---
 
-I have been using apcupsd for years without issue. Lately, the random freezes lead me to discover that there was an issue been apcupsd and Linux 3.5.x kernels. This left me looking for an alternative. I knew about [NUT](http://www.networkupstools.org/), but I have never used it before. It’s relatively easy to configure and can work to provide shutdown scripts for remote boxes. Here’s how I set it up.
+I have been using apcupsd for years without issue. Lately, the random freezes lead me to discover that there was an issue been apcupsd and Linux 3.5.x kernels. This left me looking for an alternative. I knew about [NUT](https://www.networkupstools.org/), but I have never used it before. It’s relatively easy to configure and can work to provide shutdown scripts for remote boxes. Here’s how I set it up.
 
 ```bash
 apt-get install nut

@@ -7,7 +7,7 @@ image: /wp-content/uploads/2013/07/encrypted_snapraid.jpg
 categories: [mediaserver, raid, snapraid, ubuntu]
 ---
 
-If you have read my [previous SnapRAID tutorial,](/snapraid-on-ubuntu-1404/) you will see that I’m a big fan of it for home storage. I wanted to setup a SnapRAID volume made up of encrypted hard drives. We will accomplish this using dm-crypt + LUKS. The following is how I did it.
+If you have read my [previous SnapRAID tutorial,](/setting-up-snapraid-on-ubuntu) you will see that I’m a big fan of it for home storage. I wanted to setup a SnapRAID volume made up of encrypted hard drives. We will accomplish this using dm-crypt + LUKS. The following is how I did it.
 
 This example is going to made up of a (3) disk SnapRAID array + (1) parity disk. In this example, they are disks /dev/sd\[bcde\]. First, let’s install the tools to create encrypted filesystems and to work with our disks.
 

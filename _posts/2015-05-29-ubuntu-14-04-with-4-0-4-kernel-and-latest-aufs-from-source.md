@@ -10,7 +10,7 @@ categories: [aufs, pooling, compile]
 After some Googling, this looks like a common issue with most kernels shipping with distros. Here are a few links to look at.
 
 <https://forums.sonarr.tv/t/native-mono-crashes/4985/32>  
-<http://emby.media/community/index.php?/topic/19955-emby-crashing-ubuntu-server/page-5#entry207271>  
+<https://emby.media/community/index.php?/topic/19955-emby-crashing-ubuntu-server/page-5#entry207271>  
 <https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1450584>
 
 Here are the steps I followed to get this working.
@@ -29,12 +29,12 @@ Next, let’s grab the mainline Ubuntu 4.0.4 kernel and patches, and install the
 ```
 mkdir -p /opt/src/4.0.4/
 cd /opt/src/4.0.4/
-wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.0.4-wily/linux-headers-4.0.4-040004-generic_4.0.4-040004.201505171336_amd64.deb
-wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.0.4-wily/linux-headers-4.0.4-040004_4.0.4-040004.201505171336_all.deb
-wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.0.4-wily/linux-image-4.0.4-040004-generic_4.0.4-040004.201505171336_amd64.deb
-wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.0.4-wily/0001-base-packaging.patch
-wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.0.4-wily/0002-debian-changelog.patch
-wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.0.4-wily/0003-configs-based-on-Ubuntu-4.0.2-1.1.patch
+wget https://kernel.ubuntu.com/~kernel-ppa/mainline/v4.0.4-wily/linux-headers-4.0.4-040004-generic_4.0.4-040004.201505171336_amd64.deb
+wget https://kernel.ubuntu.com/~kernel-ppa/mainline/v4.0.4-wily/linux-headers-4.0.4-040004_4.0.4-040004.201505171336_all.deb
+wget https://kernel.ubuntu.com/~kernel-ppa/mainline/v4.0.4-wily/linux-image-4.0.4-040004-generic_4.0.4-040004.201505171336_amd64.deb
+wget https://kernel.ubuntu.com/~kernel-ppa/mainline/v4.0.4-wily/0001-base-packaging.patch
+wget https://kernel.ubuntu.com/~kernel-ppa/mainline/v4.0.4-wily/0002-debian-changelog.patch
+wget https://kernel.ubuntu.com/~kernel-ppa/mainline/v4.0.4-wily/0003-configs-based-on-Ubuntu-4.0.2-1.1.patch
 dpkg -i linux-*4.0.4*.deb
 ```
 

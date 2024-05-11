@@ -211,9 +211,7 @@ Finally, I wanted something to pool these disks together. There are four options
 
 **4. This is what I use** Finally, a solution that performs well and is easy to use. [MergerFS](/mergerfs-another-good-option-to-pool-your-snapraid-disks/) (the solution I’m currently using). This is a FUSE based solution, but it’s fast and has create modes like AUFS. It’s also easy to install and requires no compiling unlike AUFS to get it working. This is what I use now, and it’s great and actively developed.
 
-After choosing one of the options above, you should now have a mount point at /storage that is pooling all of your disks into one large volume. You’ll still want to setup a [UPS](/installing-nut-on-ubuntu/) and [SMART](/how-do-i-know-if-my-hard-drive-is-failing/) monitoring for your disks. Another thing I did was write up a simple BASH script to watch my disk usage, and email me if a disk gets over 90% used, so I can add another disk to the array.
-
-Next, I would strongly suggest you read my other articles to setup [email](/send-system-email-with-gmail-and-ssmtp/) for monitoring, [SMART information monitoring](/how-do-i-know-if-my-hard-drive-is-failing/) , [spinning down disks](/spin-down-idle-hard-disks/), setting up a [UPS battery backup](/installing-nut-on-ubuntu/), and other raid array actions. Being able to cope with drives failing useful, but it’s nice to know that one has failed and be able to replace it too.
+After choosing one of the options above, you should now have a mount point at /storage that is pooling all of your disks into one large volume. You’ll still want to setup a [UPS](/installing-nut-on-ubuntu/) and SMART monitoring for your disks. Another thing I did was write up a simple BASH script to watch my disk usage, and email me if a disk gets over 90% used, so I can add another disk to the array.
 
 **Updating in the future**  
 You may wonder…”Hmm, I installed this fancy SnapRAID a while back, but the shiny new version of SnapRAID just came out, so how do I update?” The nice thing about SnapRAID is that it’s a standalone binary with no dependencies, so you can upgrade it in place. Just grab the latest version, untar, and install.

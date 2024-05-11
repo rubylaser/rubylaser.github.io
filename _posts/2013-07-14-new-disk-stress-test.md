@@ -9,7 +9,7 @@ categories: [disk, linux, raid, ubuntu]
 
 I bought a few new disks and wanted a better way to weed out marginal disks before I deployed them.
 
-I don’t use UnRAID at home, but I liked the idea of their [preclear script](http://lime-technology.com/forum/index.php?topic=2817.0). I have modified it to remove a number of unnecessary options, but it works at this point, so I thought I would post it. How does it work?
+I don’t use UnRAID at home, but I liked the idea of their [preclear script](https://lime-technology.com/forum/index.php?topic=2817.0). I have modified it to remove a number of unnecessary options, but it works at this point, so I thought I would post it. How does it work?
 
 The script:  
 \* gets a SMART report  
