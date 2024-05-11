@@ -11,7 +11,7 @@ categories: [script, snapraid]
 
 I needed a simple, reliable way to run diffs, syncs, and scrubs on my SnapRAID array nightly without me manually having to run commands each time. This SnapRAID script does that, and will stop if there are issues, and it provides a nightly email alert of the status of the array. Let’s take a look at getting this setup.
 
-You will likely not want to use this as is, because your parity files are likely named differently than mine. Also, I use [Mutt to send out system emails](/send-system-email-with-gmail-and-ssmtp/) in lieu of the /usr/bin/mail like the default script uses. If you want to use Mutt, you just need to install it. I have updated my updated script again for 6.0.
+You will likely not want to use this as is, because your parity files are likely named differently than mine. Also, I use Mutt to send out system emails in lieu of the /usr/bin/mail like the default script uses. If you want to use Mutt, you just need to install it. I have updated my updated script again for 6.0.
 
 ```bash
 apt-get install mutt
