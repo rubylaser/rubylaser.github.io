@@ -7,8 +7,6 @@ categories: web-development
 tags: [web-development, ruby on rails, wordpress, jekyll, static sites, gitHub pages]
 ---
 
-# The Evolution of My Website: From Rails to Wordpress to Jekyll
-
 ### The Beginning: A Custom Ruby on Rails Application
 
 It’s been quite the journey for my personal website. When I started over five years ago, I built it using a custom Ruby on Rails application. At that time, my professional life revolved heavily around Rails development. The website served as a playground for my coding experiments as much as a showcase of my work. However, as is often the case with personal projects, my own site slowly became the least of my priorities. Updates became sporadic, limited to adding new articles while the underlying technology lagged behind.
