@@ -17,7 +17,7 @@ Cycling was a significant part of my childhood—a symbol of freedom and the thr
 
 ## A Journey Back to Fitness
 
-After a challenging period in my life, I made a commitment to myself to get back in better physical and mental shape. I began with long walks and worked my way up to 10 miles walks. At this time, I also, tentatively, started cycling again. I was out of practice and started with modest 3-mile trips. Despite the challenges, I fell in love with cycling all over again. The sense of freedom was palpable, reminiscent of my carefree youth.
+After a challenging period in my life, I made a commitment to myself to get back in better physical and mental shape. I began with long walks and worked my way up to 10 miles. At this time, I also, tentatively, started cycling again. I was out of practice and started with modest 3-mile trips. Despite the challenges, I fell in love with cycling all over again. The sense of freedom was palpable, reminiscent of my carefree youth.
 
 ![Old Me](/wp-content/uploads/images/cycling-intro/old-me.jpg)
 
