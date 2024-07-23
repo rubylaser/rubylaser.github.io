@@ -34,7 +34,7 @@ Our adventures take us through a variety of terrains, from scenic trails to road
 
 ### Pushing the Limits
 
-Of course, there are times when we push ourselves hard. Jack's e-bike is capable of impressive speeds, and I often find myself trying to average 20mph to keep up with him. These high-speed rides are exhilarating and add a competitive edge to our adventures. But whether we're riding at a leisurely pace or pushing our limits, the true joy comes from being together and sharing these experiences.
+Of course, there are times when we push ourselves hard. Jack's e-bike is capable of impressive speeds, and I often find myself trying to average 20mph to keep up with him. These high-speed rides are exhilarating and add a competitive edge to our adventures. But whether we're riding at a leisurely Zone 2 pace or pushing our limits, the true joy comes from being together and sharing these experiences.
 
 ## The Joy of Shared Rides
 
