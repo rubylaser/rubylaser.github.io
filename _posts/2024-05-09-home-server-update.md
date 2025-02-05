@@ -17,7 +17,7 @@ The heart of my current setup is an AMD EPYC 7402P CPU paired with a Supermicro 
 
 ## Specialized Hardware Components
 **Boot Drives:** The system boots from two 800GB Intel DC S3610 SSDs, ensuring quick startups and robust performance.
-Mass Storage: For bulk storage, I've assembled 16 drives totaling 256TB, a mix of Seagate EXOS and HGST drives, managed with SnapRAID and mergerfs for optimal data protection and flexibility.
+Mass Storage: For bulk storage, I've assembled 16 drives totaling 174TB useable, a mix of Seagate EXOS and HGST drives, managed with SnapRAID and mergerfs for optimal data protection and flexibility.
 
 ![Home Server Build](/wp-content/uploads/images/home-server-build-2024.jpg)
 
@@ -26,7 +26,7 @@ Mass Storage: For bulk storage, I've assembled 16 drives totaling 256TB, a mix o
 ![JBOD Case](/wp-content/uploads/images/826-jbod-2024.jpg)
 ![JBOD Case Racked](/wp-content/uploads/images/826-jbod-racked-2024.jpg)
 
-**Graphics and Connectivity:** An NVIDIA T1000 GPU handles GPU encoding (I tried an Intel Arc A380, but the lack of BAR support on AMD Eypc made this not work as well as I'd hoped.) for media applications like Plex, while dual HBAs (LSI 9300-8i and 9300-8e) ensure expansive connectivity and data throughput. The network is handled with an Intel X540-T2.
+**Graphics and Connectivity:** An NVIDIA 3060 GPU handles GPU encoding (I tried an Intel Arc A380, but the lack of BAR support on AMD Eypc made this not work as well as I'd hoped. **Edit: this board now supports resizeable BAR, and the ARC GPU does work, but I'm sticking with the 3060 for now.** ) for media applications like Plex, while dual HBAs (LSI 9300-8i and 9300-8e) ensure expansive connectivity and data throughput. The network is handled with an Intel X540-T2.
 
 ![Intel Arc 380](/wp-content/uploads/images/home-server-with-arc-gpu.jpg)
 
