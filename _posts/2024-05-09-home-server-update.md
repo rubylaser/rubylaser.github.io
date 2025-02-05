@@ -10,7 +10,7 @@ tags: [home server, proxmox, zfs, snapraid, mergerfs, docker, hardware]
 Following the spirit of my previous article years ago on my [home server upgrade](/new-home-server/), I recently gave my home server a significant performance and functionality overhaul. This machine has gone through numerous hardware iterations, reflecting both my evolving needs and the advances in technology.
 
 ## Hardware Evolution
-The heart of my current setup is an AMD EPYC 7402P CPU paired with a Supermicro H12SSL-i motherboard, a robust combination that supports the extensive tasks demanded by a modern home server. Memory is no slouch either, with (8) sticks of 32GB DDR4 ECC REG RAM. The storage configuration is equally impressive: four Intel P4510 2TB PCIe NVMe SSDs in a ZFS RAID10 setup for blazing-fast data access and reliable redundancy.
+The heart of my current setup is an AMD EPYC 7402P CPU paired with a Supermicro H12SSL-i motherboard, a robust combination that supports the extensive tasks demanded by a modern home server. Memory is no slouch either, with (8) sticks of 16GB DDR4 ECC REG RAM. The storage configuration is equally impressive: four Intel P4510 2TB PCIe NVMe SSDs in a ZFS RAID10 setup for blazing-fast data access and reliable redundancy.
 
 ![Home Server Build](/wp-content/uploads/images/rack-front-2024.jpg)
 
