@@ -79,8 +79,8 @@ sgdisk --load-backup=table /dev/sdf
 Now, we will make a place to mount the disks. I mount them via /etc/fstab labeled by their device type and serial number as seen beloew. This makes the disk easier to identify in the event of a disk failure.
 
 ```
-mkdir -p /mnt/data/disk{1..4}
-mkdir -p /mnt/parity/1-parity
+mkdir -p /disks/data/disk{1..4}
+mkdir -p /disks/parity/1-parity
 ```
 
 Setup a filesystem on each data disk (Note, I’m reserving 2% of the disks space so that the parity overhead can fit on the parity disk). You can set the reserved space to 0% if your parity disk(s) are all larger than your data disks (i.e. you have 6TB parity disks and 5TB data disks).
@@ -157,7 +157,7 @@ nano /etc/snapraid.conf
 This is how I configured mine
 
 ```
-parity /mnt/parity/1-parity/snapraid.parity
+parity /disks/parity/1-parity/snapraid.parity
 
 content /var/snapraid/content
 content /disks/data/disk1/content
