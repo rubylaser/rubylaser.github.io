@@ -11,6 +11,8 @@ categories: [fileserver, home, linux, snapraid, ubuntu]
 
 </div>I have SnapRAID setup to create a super flexible, reliable bulk media server. I have used SnapRAID for years across numerous versions of Ubuntu and a plethora of hardware. SnapRAID has been so reliable that I have updated hardware four times since I originally set it up, migrated through many versions of SnapRAID, added many data disks, added parity levels, and replaced disks all without issue. All the while, it’s been super flexible and an awesome way to manage my bulk media. I currently have a [ridiculously over the top server that you can read more about here](/new-home-server/). On it, I use three parity disks and 21 data disks.
 
+**Note:** I have built a newer version of this server that is even more [ridiculous](https://zackreed.me/posts/home-server-update/). 
+
 The first thing I do after any new install is update the system, and install my base packages.
 
 ```
