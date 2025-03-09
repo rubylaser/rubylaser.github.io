@@ -28,15 +28,15 @@ Finally, let’s install it.
 
 ```
 cd
-wget https://github.com/amadvance/snapraid/releases/download/v12.3/snapraid-12.3.tar.gz
-tar xzvf snapraid-12.3.tar.gz
-cd snapraid-12.3/
+wget https://github.com/amadvance/snapraid/releases/download/v12.4/snapraid-12.4.tar.gz
+tar xzvf snapraid-12.4.tar.gz
+cd snapraid-12.4/
 ./configure
 make
 make check
 make install
 cd ..
-cp ~/snapraid-12.3/snapraid.conf.example /etc/snapraid.conf
+cp ~/snapraid-12.4/snapraid.conf.example /etc/snapraid.conf
 cd ..
 ```
 
@@ -217,9 +217,9 @@ After choosing one of the options above, you should now have a mount point at /s
 You may wonder…”Hmm, I installed this fancy SnapRAID a while back, but the shiny new version of SnapRAID just came out, so how do I update?” The nice thing about SnapRAID is that it’s a standalone binary with no dependencies, so you can upgrade it in place. Just grab the latest version, untar, and install.
 
 ```
-wget https://github.com/amadvance/snapraid/releases/download/v12.3/snapraid-12.3.tar.gz
-tar xzvf snapraid-12.3.tar.gz
-cd snapraid-12.3/
+wget https://github.com/amadvance/snapraid/releases/download/v12.4/snapraid-12.4.tar.gz
+tar xzvf snapraid-12.4.tar.gz
+cd snapraid-12.4/
 ./configure
 make
 make check
