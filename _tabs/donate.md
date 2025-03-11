@@ -2,6 +2,8 @@
 layout: page
 title: Donate
 permalink: /donate/
+icon: fa-solid fa-circle-dollar-to-slot
+order: 2
 ---
 
 ## Support My Blog
