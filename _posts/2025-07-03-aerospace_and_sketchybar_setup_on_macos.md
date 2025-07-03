@@ -23,7 +23,6 @@ One small but annoying issue: Sketchybar lives at the top of each screen, but ma
 Thanks to Aerospace’s native support for per-monitor gap config, this is now handled entirely declaratively in `~/.config/aerospace/config.toml`:
 
 ```toml
-```
 [gaps]
 inner.horizontal = 8
 inner.vertical = 8
@@ -35,9 +34,6 @@ outer.top = [
 ]
 outer.left = 5
 outer.right = 5
-```
-```
-```
 ```
 
 No hotkey toggles, no scripts — just clean config that adapts automatically based on whether I’m docked or on the go.
@@ -53,9 +49,7 @@ My Sketchybar config lives in ~/.config/sketchybar, and I restart it with:
 
 
 ```bash
-```
 brew services restart sketchybar
-```
 ```
 
 ### Terminal of Choice: Ghostty
