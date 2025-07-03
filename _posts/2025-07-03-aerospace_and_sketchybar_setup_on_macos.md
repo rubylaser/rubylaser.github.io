@@ -29,7 +29,7 @@ inner.vertical = 8
 outer.bottom = 5
 outer.top = [
   { monitor."built-in" = 10 },
-  { monitor."main" = 50;
+  { monitor."main" = 50 },
   50
 ]
 outer.left = 5
