@@ -88,6 +88,8 @@ git commit -m "Initial commit"
 git push -u origin main
 ```
 
+Here's a [link to my repo](https://github.com/rubylaser/dotfiles) if you'd like to check some of these things out.
+
 I also use gitleaks before pushing to make sure nothing secret accidentally makes it in:
 
 ```bash
