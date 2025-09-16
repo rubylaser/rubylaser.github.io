@@ -7,9 +7,11 @@ tags:
   - strava
   - self hosted
   - training
-permalink: /setting-up-snapraid-on-ubuntu/
-image: /wp-content/images/strava_stats_overview.jpg
+permalink: /strava-statistics/
+image: /wp-content/uploads/images/strava_stats_overview.jpg
 ---
+
+# Statistics for Strava
 
 I ride a lot, but it is easy to lose track of the bigger picture. Daily rides blur together and I tend to focus on what went wrong or what hurt the most. I wanted a way to see the longer story and track how my riding has changed over time and leverage all the data from my headunit to Strava. Setting up [statistics-for-strava](https://github.com/robiningelbrecht/statistics-for-strava) gave me that view.  
 
