@@ -18,7 +18,9 @@ After finishing my last round of upgrades on the main storage server, I turned m
 The upgrade centered on swapping in a **BPN-SAS3-826EL1** backplane. It fits perfectly in the same Supermicro 826 chassis but introduces a big improvement in the way of modern SAS3 and an integrated SAS expander. That means a single SFF-8644 connection from the host can handle all the drives in the enclosure. No need to run three cables from the host to address the 12 disks in the shelf.  I only need one now.
 ![826EL1 Installed](/wp-content/uploads/images/sas3-826EL1-backplane.jpg)
 
-The swap was straightforward. I removed the older 826A backplane, cleaned up the cabling, and installed the new SAS3 unit. The connectors lined up exactly, and the power distribution board didn’t need any changes. The fans and drive LEDs worked right away, which was a good sign that everything was wired correctly.  
+The swap was straightforward (other than needing to pull some of the trays into the right spots to thread the backplane screws through). I removed the older 826A backplane, cleaned up the cabling, and installed the new SAS3 unit. The connectors lined up exactly, and the power distribution board didn’t need any changes. The fans and drive LEDs worked right away, which was a good sign that everything was wired correctly.
+
+This is a great [video](https://www.youtube.com/watch?v=Ey95VDPo3Ug) for more thorough directions.
 
 With the new backplane in place, the JBOD is ready for the next step — linking multiple shelves together. The expander makes it much easier to add another disk shelf when I need more capacity. It also improves signal quality and keeps cabling neat inside the rack.  
 
