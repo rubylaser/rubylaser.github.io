@@ -2,7 +2,7 @@
 layout: post
 title: "Dialing in My Tiling: My Full Aerospace + Sketchybar Setup on macOS"
 date: 2025-07-02
-image: /wp-content/uploads/images/macos-dotfiles/dotfiles-header-image.jpg
+image: /wp-content/uploads/images/macos-dotfiles/dotfiles-header-image.webp
 categories: [dotfiles, macos, tiling, productivity]
 tags: [aerospace, sketchybar, ghostty, dotfiles, zsh, tiling window manager, macbook]
 description: A deep dive into how I’ve configured Aerospace and Sketchybar for a seamless tiling window manager experience on macOS, plus how I commit my dotfiles to GitHub.

@@ -8,7 +8,7 @@ tags:
   - self hosted
   - training
 permalink: /strava-statistics/
-image: /wp-content/uploads/images/strava_stats_overview.jpg
+image: /wp-content/uploads/images/strava_stats_overview.webp
 ---
 
 # Statistics for Strava
