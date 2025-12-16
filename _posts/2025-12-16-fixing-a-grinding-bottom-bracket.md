@@ -105,3 +105,4 @@ This is, without exaggeration, the **best my cranks have ever felt** on this bik
 There’s also a mental benefit: I’m no longer wondering when the next creak or grind is going to show up after a muddy ride.
 
 Now, get out there and ride!
+![BB Final](/wp-content/uploads/images/bb-infinite/bb_swap_final.webp)
