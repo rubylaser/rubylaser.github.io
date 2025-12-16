@@ -79,7 +79,7 @@ Reassembly was standard:
 - Torqued preload to 12mm
 - Torqued preload innner bolt to 12mm
 
-And then came the moment of truth. Wow...
+And then came the moment of truth. It was AWESOME!
 
 ---
 
