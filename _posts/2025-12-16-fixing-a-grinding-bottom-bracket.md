@@ -11,13 +11,18 @@ Gravel and Water are relentless. They doesn’t care how well sealed your compon
 
 After a season of thousands of miles on the gravel raid trails, my **Token Ninja pressfit bottom bracket** was done. The bearings were binding badly, felt gritty no matter how much I cleaned around them, and the cranks had that unmistakable *something’s wrong* resistance. My original plan was to press out the bearings and upgrade to **Enduro MR 2437 LLU/LLB A5** cartridges.
 
+![Dirty Bearings](/wp-content/uploads/images/bb-infinite/gritty_bb.webp)
 ![Old Bearings](/wp-content/uploads/images/bb-infinite/pressing_out_old_bearings.webp)
 
 {% youtube NkKE-IOnQj0 %}
 
 That plan didn’t survive contact with reality.
 
-Instead of throwing more time and money at a system that had already proven vulnerable, I pulled the Token Ninja completely and went with a **one-piece BB Infinite BB86**, using their **CeramiTec bearings**. It took more effort than expected to install, but the result was absolutely worth it.
+Instead of throwing more time and money at a system that had already proven vulnerable, I pulled the Token Ninja completely. I'm glad that I did. My bike had approximately 5 pounds of gravel and small stones inside of the frame that I was able to remove.
+
+![Removed](/wp-content/uploads/images/bb-infinite/tolken_ninja_removed.webp)
+
+ After getting that out, I went with a **one-piece BB Infinite BB86**, using their **CeramiTec bearings**. It took more effort than expected to install, but the result was absolutely worth it.
 
 ![BB Infinite BB86](/wp-content/uploads/images/bb-infinite/bb_infinite_new.webp)
 
