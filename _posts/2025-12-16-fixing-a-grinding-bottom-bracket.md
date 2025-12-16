@@ -16,7 +16,6 @@ After a season of thousands of miles on the gravel raid trails, my **Token Ninja
 
 <iframe width="420" height="315" src="https://youtu.be/NkKE-IOnQj0" frameborder="0" allowfullscreen></iframe>
 
-
 That plan didn’t survive contact with reality.
 
 Instead of throwing more time and money at a system that had already proven vulnerable, I pulled the Token Ninja completely and went with a **one-piece BB Infinite BB86**, using their **CeramiTec bearings**. It took more effort than expected to install, but the result was absolutely worth it.
