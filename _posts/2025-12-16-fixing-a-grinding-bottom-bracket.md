@@ -14,8 +14,6 @@ After a season of thousands of miles on the gravel raid trails, my **Token Ninja
 
 ![Old Bearings](/wp-content/uploads/images/bb-infinite/pressing_out_old_bearings.webp)
 
-<iframe width="420" height="315" src="https://youtu.be/NkKE-IOnQj0" frameborder="0" allowfullscreen></iframe>
-
 That plan didn’t survive contact with reality.
 
 Instead of throwing more time and money at a system that had already proven vulnerable, I pulled the Token Ninja completely and went with a **one-piece BB Infinite BB86**, using their **CeramiTec bearings**. It took more effort than expected to install, but the result was absolutely worth it.
@@ -82,8 +80,6 @@ Reassembly was standard:
 - Torqued preload innner bolt to 12mm
 
 And then came the moment of truth. Wow...
-
-<iframe width="420" height="315" src="https://youtu.be/DuBJkb0GI6w" frameborder="0" allowfullscreen></iframe>
 
 ---
 
