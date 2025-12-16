@@ -2,13 +2,17 @@
 layout: post
 title: "From Token Ninja to BB Infinite: Finally Solving My Press Fit Bottom Bracket"
 date: 2025-12-16
-categories: [cycling, maintenance, gravel, diy]
-tags: [canyon-endurace, bottom-bracket, bb-infinite, pressfit, gravel]
-summary: "After killing a Token Ninja bottom bracket with gravel grit, I ditched bearing swaps entirely and installed a one-piece BB Infinite BB86 with CeramiTec bearings."
+tags:
+  - bottom-bracket
+  - gravel
+  - cycling
+  - endurace
+summary: >
+  After killing a Token Ninja bottom bracket with gravel grit, I ditched bearing swaps entirely and installed a one-piece BB Infinite BB86 with CeramiTec bearings.
 image: /wp-content/uploads/images/bb-infinite/bb_infinite_installed.webp
 ---
 
-Grave and Water are relentless. They doesn’t care how well sealed your components are or how carefully you wash your bike. Eventually, they find a way in.
+Gravel and Water are relentless. They doesn’t care how well sealed your components are or how carefully you wash your bike. Eventually, they find a way in.
 
 After a season of thousands of miles on the gravel raid trails, my **Token Ninja pressfit bottom bracket** was done. The bearings were binding badly, felt gritty no matter how much I cleaned around them, and the cranks had that unmistakable *something’s wrong* resistance. My original plan was to press out the bearings and upgrade to **Enduro MR 2437 LLU/LLB A5** cartridges.
 
@@ -45,7 +49,7 @@ If I was going to pull the whole thing apart anyway, I wanted a more permanent f
 
 This is where things got interesting.
 
-The **BB Infinite BB86 is a true one-piece unit**, which means it has to slide through the shell in one clean, uninterrupted motion. Anything that is in the way, is a problem. On my Canyon Endurace, two things got in the way: the rear brake line and the rear derailleur guide.  I needed to slightly reoute the brake line and use some of my needle files to file down the top edge of the guide.
+The **BB Infinite BB86 is a true one piece unit**, which means it has to slide through the shell in one clean, uninterrupted motion. Anything that is in the way, is a problem. On my Canyon Endurace, two things got in the way: the rear brake line and the rear derailleur guide.  I needed to slightly reoute the brake line and use some of my needle files to file down the top edge of the guide.
 
 ![BB Infinite Issue](/wp-content/uploads/images/bb-infinite/bb_infinite_conflicts.webp)
 
@@ -95,21 +99,5 @@ The difference was immediate and obvious.
 This is, without exaggeration, the **best my cranks have ever felt** on this bike. Even compared to when it was new, the drivetrain feels dramatically smoother.
 
 There’s also a mental benefit: I’m no longer wondering when the next creak or grind is going to show up after a muddy ride.
-
----
-
-## Final thoughts
-
-This wasn’t the cheapest or easiest path, but it feels like the *right* one for how I ride.
-
-Gravel riding is hard on bottom brackets. If you’re constantly dealing with contamination, bearing wear, or pressfit noise, a one piece solution like the **BB Infinite BB86** is worth serious consideration. Just be prepared for:
-
-- Tight tolerances
-- Potential routing conflicts
-- Some careful problem solving during install
-
-Take your time, test fit often, and **don’t force anything**.
-
-The payoff is a drivetrain that finally disappears beneath you, which is exactly how it should be.
 
 Now, get out there and ride!
