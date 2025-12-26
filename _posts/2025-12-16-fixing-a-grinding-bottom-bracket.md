@@ -7,7 +7,7 @@ tags: [Canyon Endurace, Bottom Bracket, Repairs]
 image: /wp-content/uploads/images/bb-infinite/bb_infinite_installed.webp
 ---
 
-Gravel and Water are relentless. They doesn’t care how well sealed your components are or how carefully you wash your bike. Eventually, they find a way in.
+Gravel and water are relentless. They don’t care how well sealed your components are or how carefully you wash your bike. Eventually, they find a way in.
 
 After a season of thousands of miles on the gravel raid trails, my **Token Ninja pressfit bottom bracket** was done. The bearings were binding badly, felt gritty no matter how much I cleaned around them, and the cranks had that unmistakable *something’s wrong* resistance. My original plan was to press out the bearings and upgrade to **Enduro MR 2437 LLU/LLB A5** cartridges.
 
