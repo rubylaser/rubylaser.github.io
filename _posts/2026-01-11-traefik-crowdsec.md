@@ -152,11 +152,12 @@ metrics:
     addEntryPointsLabels: true
     addRoutersLabels: true
     addServicesLabels: true
-Certificates (Cloudflare DNS-01)
+```
+
+## Certificates (Cloudflare DNS-01)
 All certs — public and private — are issued the same way.
 
-yaml
-Copy code
+```
 certificatesResolvers:
   le:
     acme:
