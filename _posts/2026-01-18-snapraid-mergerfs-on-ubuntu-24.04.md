@@ -25,7 +25,7 @@ Here are some pictures of my fileserver over the years. I couldn't find any of m
 ![Fileserver 2016](/wp-content/uploads/images/fileserver_photos/2016_fileserver.webp)
 **Fileserver 2016**
 
-A lot has changed since then.
+[Onto my current build](https://zackreed.me/posts/home-server-update/)... A lot has changed over the years.
 
 Linux has moved on. Filesystems have matured. mergerfs has evolved significantly. SnapRAID itself has continued to improve. My own expectations around safety, automation, and "don’t wake me up at 2am because your video won't play" have also changed.
 
