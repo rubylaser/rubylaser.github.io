@@ -336,7 +336,7 @@ Examples of unsafe scenarios:
 - Active writes during sync
 - A degraded or partially mounted pool
 
-Here's the good news! It's not actually super scary. This post is just really long, so I have [another post that covers a safe script that covers all of these scenarios for you](https://zackreed.me/snapraid-split-parity-sync-script/). 
+Here's the good news! It's not actually super scary. This post is just really long, so I have [another post that covers a safe script that covers all of these scenarios for you](https://zackreed.me/modern-snapraid-maintenance-script/). 
 
 ## Step 12: Common Questions: the "how do I add a new disk later?" workflow
 This is the part that makes SnapRAID + mergerfs feel magical.
