@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "A Modern SnapRAID Maintenance Script (Split Parity, Docker-Aware, and Monitored)"
+title: "A Modern, Updated SnapRAID Maintenance Script"
 date: 2026-01-20
 categories: [homelab, snapraid, storage, linux]
 tags: [snapraid, split parity, docker, monitoring, bash]
