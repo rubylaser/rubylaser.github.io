@@ -1,5 +1,5 @@
 ---
-title: "SnapRAID + mergerfs on Ubuntu 24.04: a modern, flexible home storage stack (with the why)"
+title: "SnapRAID + mergerfs on Ubuntu 24.04: a modern, flexible home storage stack"
 date: 2026-01-18
 categories: [linux, ubuntu, snapraid, mergerfs, homelab, storage]
 tags: [snapraid, mergerfs, jbod, parity, fuse, ext4]
@@ -215,7 +215,112 @@ Enable `allow_other` support:
 sed -i 's/^#user_allow_other/user_allow_other/' /etc/fuse.conf
 ```
 
-Step 8: install SnapRAID (v13.0 as of now)
+## NOTE: Ensuring /storage mounts reliably at boot (and doesn’t hang forever)
+
+If you reboot your server with a large number of disks, especially behind an HBA, you may run into a situation where:
+
+- all individual disks mount correctly
+- but the mergerfs pool (/storage) does not mount automatically
+- running mount -a after login works fine
+
+This usually means mergerfs was evaluated before all of the underlying disks were ready during boot.
+
+**Why this happens**
+
+systemd mounts filesystems in parallel. On systems with many disks, some /mnt/diskX mounts may not exist yet at the exact moment systemd tries to mount /storage.
+
+mergerfs requires at least one valid branch at mount time. If it doesn’t see them, the mount fails — and systemd does not retry automatically.
+
+**The fix: make /storage explicitly depend on its disks**
+
+The solution is to tell systemd:
+> “Do not attempt to mount /storage until all of the data disks are mounted.”
+
+You do this with `x-systemd.requires-mounts-for`, which is designed for exactly this scenario.
+
+Here’s a working `fstab` entry for a ten disk setup:
+
+```bash
+/mnt/disk*  /storage  fuse.mergerfs  cache.files=off,moveonenospc=true,category.create=pfrd,func.getattr=newest,dropcacheonclose=false,minfreespace=20G,fsname=mergerfsPool,x-systemd.requires-mounts-for=/mnt/disk1\ /mnt/disk2\ /mnt/disk3\ /mnt/disk4\ /mnt/disk5\ /mnt/disk6\ /mnt/disk7\ /mnt/disk8\ /mnt/disk9\ /mnt/disk10 0 0
+```
+
+A couple of important notes:
+
+- `fstab` does not support line continuations, so this must be on a single line
+- the disk paths in `x-systemd.requires-mounts-for` are space-separated, and the spaces must be escaped with `\`
+- this ensures systemd waits for all disks before mounting /storage
+
+After updating `fstab`, reload and test:
+
+```bash
+systemctl daemon-reload
+mount -a
+```
+
+Then reboot once to confirm it works as expected.
+
+**What happens if a disk fails?**
+
+This setup is intentionally strict, but it is **safe**.
+
+If one of the disks fails or is missing at boot:
+
+- systemd will attempt to mount the missing disk
+- it will wait up to its default timeout (typically ~90 seconds)
+- the mount attempt will fail
+- `/storage` will not mount
+- the system will continue booting normally
+
+The system does not lock up, hang indefinitely, or require a console to recover.
+
+This is the behavior you want for a SnapRAID + mergerfs pool:
+
+- it prevents writing into a degraded pool
+- it makes failures visible and explicit
+- it avoids silent data loss (writing to the underlying root disk inside of the larger storage disk)
+
+Once the disk issue is resolved, mounting `/storage` is as simple as:
+
+```bash
+mount /storage
+```
+
+or:
+```bash
+mount -a
+```
+
+Verify everything is up and working after reboot
+```bash
+mount | egrep '/mnt/disk|/mnt/parity|/storage' | sort -n
+```
+
+It should look something like this...
+```bash
+/dev/sdb1 on /mnt/disk4 type ext4 (rw,noatime,errors=remount-ro)
+/dev/sdc1 on /mnt/parity1 type ext4 (rw,noatime,errors=remount-ro)
+/dev/sdd1 on /mnt/disk3 type ext4 (rw,noatime,errors=remount-ro)
+/dev/sde1 on /mnt/disk9 type ext4 (rw,noatime,errors=remount-ro)
+/dev/sdf1 on /mnt/disk6 type ext4 (rw,noatime,errors=remount-ro)
+/dev/sdg1 on /mnt/disk1 type ext4 (rw,noatime,errors=remount-ro)
+/dev/sdh1 on /mnt/disk7 type ext4 (rw,noatime,errors=remount-ro)
+/dev/sdi1 on /mnt/disk5 type ext4 (rw,noatime,errors=remount-ro)
+/dev/sdj1 on /mnt/disk8 type ext4 (rw,noatime,errors=remount-ro)
+/dev/sdk1 on /mnt/disk2 type ext4 (rw,noatime,errors=remount-ro)
+/dev/sdl1 on /mnt/parity2 type ext4 (rw,noatime,errors=remount-ro)
+/dev/sdn1 on /mnt/disk10 type ext4 (rw,noatime,errors=remount-ro)
+mergerfsPool on /storage type fuse.mergerfs (rw,relatime,user_id=0,group_id=0,default_permissions,allow_other)
+```
+
+**Why I don’t use nofail here**
+
+You might see some guides suggesting to add the nofail option to avoid boot delays. I intentionally avoid that for the main storage pool.
+
+With this setup, it’s better for `/storage` to fail loudly than to silently disappear while Docker containers are still trying to write to it.
+
+If `/storage` didn’t mount, that’s something you want to notice immediately.
+
+## Step 8: install SnapRAID (v13.0 as of now)
 
 SnapRAID’s current release is 13.0. 
 
