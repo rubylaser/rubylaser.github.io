@@ -215,40 +215,115 @@ Enable `allow_other` support:
 sed -i 's/^#user_allow_other/user_allow_other/' /etc/fuse.conf
 ```
 
-## NOTE: Ensuring /storage mounts reliably at boot (and doesn’t hang forever)
+## NOTE: Ensuring `/storage` mounts reliably at boot (and doesn’t hang forever)
 
 If you reboot your server with a large number of disks, especially behind an HBA, you may run into a situation where:
 
 - all individual disks mount correctly
-- but the mergerfs pool (/storage) does not mount automatically
-- running mount -a after login works fine
+- but the mergerfs pool (`/storage`) does not mount automatically
+- running `mount -a` after login works fine
 
-This usually means mergerfs was evaluated before all of the underlying disks were ready during boot.
+This usually means mergerfs was evaluated **before all of the underlying disks were ready** during boot.
 
 **Why this happens**
 
-systemd mounts filesystems in parallel. On systems with many disks, some /mnt/diskX mounts may not exist yet at the exact moment systemd tries to mount /storage.
+systemd mounts filesystems in parallel. On systems with many disks, some `/mnt/diskX` mounts may not exist yet at the exact moment systemd tries to mount `/storage`.
 
 mergerfs requires at least one valid branch at mount time. If it doesn’t see them, the mount fails — and systemd does not retry automatically.
 
-**The fix: make /storage explicitly depend on its disks**
+**The fix: make `/storage` explicitly depend on its disks**
 
 The solution is to tell systemd:
 > “Do not attempt to mount /storage until all of the data disks are mounted.”
 
 You do this with `x-systemd.requires-mounts-for`, which is designed for exactly this scenario.
 
-Here’s a working `fstab` entry for a ten disk setup:
+Important note on compatibility
+
+In theory, `x-systemd.requires-mounts-for` accepts a space-separated list of paths. In practice, fstab parsing of escaped spaces is not consistent across all systemd builds, even on Ubuntu-based distributions.
+
+Based on feedback from multiple readers (including Linux Mint users), the most reliable approach is to repeat the option once per disk. This avoids whitespace parsing entirely and works everywhere.
+
+## Recommended (portable) `fstab` entry
 
 ```bash
-/mnt/disk*  /storage  fuse.mergerfs  cache.files=off,moveonenospc=true,category.create=pfrd,func.getattr=newest,dropcacheonclose=false,minfreespace=20G,fsname=mergerfsPool,x-systemd.requires-mounts-for=/mnt/disk1\ /mnt/disk2\ /mnt/disk3\ /mnt/disk4\ /mnt/disk5\ /mnt/disk6\ /mnt/disk7\ /mnt/disk8\ /mnt/disk9\ /mnt/disk10 0 0
+/mnt/disk*  /storage  fuse.mergerfs  cache.files=off,moveonenospc=true,category.create=pfrd,func.getattr=newest,dropcacheonclose=false,minfreespace=20G,fsname=mergerfsPool,x-systemd.requires-mounts-for=/mnt/disk1,x-systemd.requires-mounts-for=/mnt/disk2,x-systemd.requires-mounts-for=/mnt/disk3,x-systemd.requires-mounts-for=/mnt/disk4,x-systemd.requires-mounts-for=/mnt/disk5,x-systemd.requires-mounts-for=/mnt/disk6,x-systemd.requires-mounts-for=/mnt/disk7,x-systemd.requires-mounts-for=/mnt/disk8,x-systemd.requires-mounts-for=/mnt/disk9,x-systemd.requires-mounts-for=/mnt/disk10  0 0
 ```
 
 A couple of important notes:
 
 - `fstab` does not support line continuations, so this must be on a single line
 - the disk paths in `x-systemd.requires-mounts-for` are space-separated, and the spaces must be escaped with `\`
-- this ensures systemd waits for all disks before mounting /storage
+- this ensures systemd waits for all disks before mounting `/storage`
+
+## Bonus: automatically generate the correct `fstab` entry
+
+If you don’t want to manually count disks or risk typos, the script below will:
+
+- backup your current `/etc/fstab` to `/etc/fstab.bak.timestamp`
+- detect mounted disks at `/mnt/diskN`
+- build the correct `x-systemd.requires-mounts-for=` options
+- append a valid mergerfs line to `/etc/fstab`
+- create a timestamped backup first
+- refuse to add a duplicate `/storage` entry
+
+**Copy/paste helper script**
+
+```bash
+sudo bash -c '
+set -euo pipefail
+
+FSTAB="/etc/fstab"
+TS="$(date +%Y%m%d-%H%M%S)"
+
+# Prevent duplicate /storage entries
+if awk '\''$2=="/storage" {found=1} END{exit !found}'\'' "$FSTAB"; then
+  echo "ERROR: $FSTAB already contains an entry for /storage."
+  echo "Remove or comment it out before re-running this script."
+  exit 1
+fi
+
+# Detect mounted /mnt/diskN paths
+mapfile -t DISKS < <(
+  findmnt -rn -o TARGET \
+  | grep -E "^/mnt/disk[0-9]+$" \
+  | sort -V
+)
+
+if ((${#DISKS[@]} == 0)); then
+  echo "ERROR: No mounted disks found at /mnt/diskN."
+  exit 1
+fi
+
+echo "Detected disks:"
+printf "  %s\n" "${DISKS[@]}"
+
+REQ_OPTS=""
+for d in "${DISKS[@]}"; do
+  REQ_OPTS+=",x-systemd.requires-mounts-for=${d}"
+done
+
+BASE_OPTS="cache.files=off,moveonenospc=true,category.create=pfrd,func.getattr=newest,dropcacheonclose=false,minfreespace=20G,fsname=mergerfsPool"
+
+LINE="/mnt/disk*  /storage  fuse.mergerfs  ${BASE_OPTS}${REQ_OPTS}  0 0"
+
+mkdir -p /storage
+cp -a "$FSTAB" "${FSTAB}.bak.${TS}"
+
+{
+  echo ""
+  echo "# mergerfs pool (added ${TS})"
+  echo "$LINE"
+} >> "$FSTAB"
+
+echo ""
+echo "Added to $FSTAB:"
+echo "$LINE"
+echo ""
+echo "Backup saved as: ${FSTAB}.bak.${TS}"
+echo "Next: sudo systemctl daemon-reload && sudo mount -a"
+'
+```
 
 After updating `fstab`, reload and test:
 
