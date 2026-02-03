@@ -145,7 +145,7 @@ mkdir -p /storage
 mkdir -p /var/snapraid
 ```
 
-## Step 5: mount by UUID in /etc/fstab
+## Step 5: mount by UUID in `/etc/fstab`
 Get UUIDs:
 ```bash
 blkid
@@ -186,7 +186,7 @@ rm -f mergerfs_*.deb
 mergerfs -V
 ```
 
-## Step 7: Create the mergerfs pool mount in /etc/fstab
+## Step 7: Create the mergerfs pool mount in `/etc/fstab`
 Here’s a modern fstab line that pools /mnt/disk* into /storage.
 
 ```bash
