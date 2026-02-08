@@ -91,7 +91,6 @@ Let’s say we have:
 /mnt/parity1 -> normal ext4/btrfs/xfs filesystem holding parity files
 /storage     -> mergerfs mount that merges /mnt/disk* into one view
 ```
-Important: **SnapRAID runs against the underlying disks**, not the pooled `/storage` mount. (We’ll still use `/storage` for day-to-day reads/writes.)
 
 ## Step 0: Install baseline packages
 
