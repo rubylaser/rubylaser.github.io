@@ -57,6 +57,27 @@ Mergerfs is not RAID either. It’s a union filesystem that makes many paths loo
 
 The combo works great because SnapRAID wants "independent disks with normal filesystems", and mergerfs gives you the convenience of "one mount point" without changing how disks are laid out underneath.
 
+## Understanding SnapRAID's Parity Model
+One of the most common questions I receive about this setup is: **"Why isn't the parity drive included in the mergerfs pool?"**
+
+If you're coming from a traditional RAID background (RAID5, RAID6, or ZFS), this might seem counterintuitive. In those systems, parity is automatically calculated and distributed across all drives in real-time, and you interact with a single unified pool. You never think about where parity lives, it just works.
+
+SnapRAID works **fundamentally differently**.
+
+## SnapRAID's Approach
+In SnapRAID, your parity drives are dedicated parity storage only. They don't contain any of your actual data. They contain calculated parity information that's generated when you run `snapraid sync`. Here's what this means in practice:
+
+Data drives (`/mnt/disk1`, `/mnt/disk2`, etc.) contain your actual files and are merged into /storage via mergerfs
+Parity drives (`/mnt/parity1`, `/mnt/parity2`) contain only parity data and are never mounted as part of your storage pool
+
+## Why This Design?
+This separation brings several advantages:
+
+1. You can still access your **data drives individually** - If something goes wrong with SnapRAID or mergerfs, you can mount any data drive directly and access its files. They're just regular filesystems.
+2. ** ** - When a data drive fails, you can rebuild it using the parity drive(s). But if a parity drive fails, you simply replace it and rebuild parity—your data is completely safe.
+3. **No real-time performance penalty** - Unlike traditional RAID where every write calculates parity immediately, SnapRAID only calculates parity when you run `snapraid sync`. This means better write performance for your daily operations.
+4. **Flexibility with different drive sizes** - Your parity drive just needs to be as large as your largest data drive, not the sum of all drives. You can mix and match data drive sizes freely.
+
 ## A quick picture of the layout
 Let’s say we have:
 - Data disks: `/mnt/disk1`, `/mnt/disk2`, `/mnt/disk3`,…
@@ -151,7 +172,7 @@ Get UUIDs:
 blkid
 ```
 
-Edit /etc/fstab:
+Edit `/etc/fstab`:
 
 ```bash
 # Data disks
