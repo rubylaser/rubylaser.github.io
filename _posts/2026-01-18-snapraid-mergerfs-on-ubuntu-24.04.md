@@ -17,13 +17,15 @@ Here are some pictures of my fileserver over the years. I couldn't find any of m
 **Fileserver 2010**
 
 ![Fileserver 2014](/wp-content/uploads/images/fileserver_photos/2014_fileserver.webp)
-**Fileserver 2014**
+**Fileserver 2014** [Here's a link to this build](https://zackreed.me/home-hyper-v-server/)
 
 ![Fileserver 2015](/wp-content/uploads/images/fileserver_photos/2015_fileserver.webp)
-**Fileserver 2015**
+**Fileserver 2015** [Here's a link to this build](https://zackreed.me/why-i-moved-from-hyper-v-to-esxi-at-home/)
 
 ![Fileserver 2016](/wp-content/uploads/images/fileserver_photos/2016_fileserver.webp)
-**Fileserver 2016**
+![Fileserver 2016 2](/wp-content/uploads/2016/08/5BTNT68.jpg)
+![Home Server 24 bays of storage!!!](/wp-content/uploads/2016/08/QjO0wft.jpg) 
+**Fileserver 2016** [Here's a link to this build](https://zackreed.me/new-home-server/)
 
 [Onto my current build](https://zackreed.me/posts/home-server-update/)... A lot has changed over the years.
 
@@ -91,6 +93,7 @@ Let’s say we have:
 /mnt/parity1 -> normal ext4/btrfs/xfs filesystem holding parity files
 /storage     -> mergerfs mount that merges /mnt/disk* into one view
 ```
+Important: **SnapRAID runs against the underlying disks**, not the pooled `/storage` mount. (We’ll still use `/storage` for day-to-day reads/writes.)
 
 ## Step 0: Install baseline packages
 
@@ -258,7 +261,7 @@ The solution is to tell systemd:
 
 You do this with `x-systemd.requires-mounts-for`, which is designed for exactly this scenario.
 
-Important note on compatibility
+**Important note on compatibility**
 
 In theory, `x-systemd.requires-mounts-for` accepts a space-separated list of paths. In practice, fstab parsing of escaped spaces is not consistent across all systemd builds, even on Ubuntu-based distributions.
 
@@ -269,12 +272,6 @@ Based on feedback from multiple readers (including Linux Mint users), the most r
 ```bash
 /mnt/disk*  /storage  fuse.mergerfs  cache.files=off,moveonenospc=true,category.create=pfrd,func.getattr=newest,dropcacheonclose=false,minfreespace=20G,fsname=mergerfsPool,x-systemd.requires-mounts-for=/mnt/disk1,x-systemd.requires-mounts-for=/mnt/disk2,x-systemd.requires-mounts-for=/mnt/disk3,x-systemd.requires-mounts-for=/mnt/disk4,x-systemd.requires-mounts-for=/mnt/disk5,x-systemd.requires-mounts-for=/mnt/disk6,x-systemd.requires-mounts-for=/mnt/disk7,x-systemd.requires-mounts-for=/mnt/disk8,x-systemd.requires-mounts-for=/mnt/disk9,x-systemd.requires-mounts-for=/mnt/disk10  0 0
 ```
-
-A couple of important notes:
-
-- `fstab` does not support line continuations, so this must be on a single line
-- the disk paths in `x-systemd.requires-mounts-for` are space-separated, and the spaces must be escaped with `\`
-- this ensures systemd waits for all disks before mounting `/storage`
 
 ## Bonus: automatically generate the correct `fstab` entry
 
