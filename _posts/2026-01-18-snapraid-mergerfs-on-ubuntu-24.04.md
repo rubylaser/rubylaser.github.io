@@ -76,7 +76,7 @@ Parity drives (`/mnt/parity1`, `/mnt/parity2`) contain only parity data and are 
 This separation brings several advantages:
 
 1. You can still access your **data drives individually** - If something goes wrong with SnapRAID or mergerfs, you can mount any data drive directly and access its files. They're just regular filesystems.
-2. ** ** - When a data drive fails, you can rebuild it using the parity drive(s). But if a parity drive fails, you simply replace it and rebuild parity—your data is completely safe.
+2. When a data drive fails, you can rebuild it using the parity drive(s). But if a parity drive fails, you simply replace it and rebuild parity—your data is completely safe.
 3. **No real-time performance penalty** - Unlike traditional RAID where every write calculates parity immediately, SnapRAID only calculates parity when you run `snapraid sync`. This means better write performance for your daily operations.
 4. **Flexibility with different drive sizes** - Your parity drive just needs to be as large as your largest data drive, not the sum of all drives. You can mix and match data drive sizes freely.
 
@@ -267,7 +267,7 @@ In theory, `x-systemd.requires-mounts-for` accepts a space-separated list of pat
 
 Based on feedback from multiple readers (including Linux Mint users), the most reliable approach is to repeat the option once per disk. This avoids whitespace parsing entirely and works everywhere.
 
-## Recommended (portable) `fstab` entry
+## Recommended `fstab` entry
 
 ```bash
 /mnt/disk*  /storage  fuse.mergerfs  cache.files=off,moveonenospc=true,category.create=pfrd,func.getattr=newest,dropcacheonclose=false,minfreespace=20G,fsname=mergerfsPool,x-systemd.requires-mounts-for=/mnt/disk1,x-systemd.requires-mounts-for=/mnt/disk2,x-systemd.requires-mounts-for=/mnt/disk3,x-systemd.requires-mounts-for=/mnt/disk4,x-systemd.requires-mounts-for=/mnt/disk5,x-systemd.requires-mounts-for=/mnt/disk6,x-systemd.requires-mounts-for=/mnt/disk7,x-systemd.requires-mounts-for=/mnt/disk8,x-systemd.requires-mounts-for=/mnt/disk9,x-systemd.requires-mounts-for=/mnt/disk10  0 0
