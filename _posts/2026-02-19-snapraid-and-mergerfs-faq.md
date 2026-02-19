@@ -1,6 +1,6 @@
 ---
 title: "SnapRAID and mergerfs FAQ: Common Questions from New Linux Users"
-date: 2025-02-19
+date: 2026-02-19
 categories: [self-hosting, linux, storage]
 tags: [snapraid, mergerfs, ubuntu, linux, faq, troubleshooting]
 description: "Answers to the most common questions I receive about setting up SnapRAID and mergerfs, especially for people making the jump from Windows to Linux."
