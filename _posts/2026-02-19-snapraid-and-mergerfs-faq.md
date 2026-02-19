@@ -35,7 +35,7 @@ If you include your parity drive in your mergerfs pool, files would be written t
 
 If you want to keep different types of content on specific drives (like movies on one drive and TV shows on another), use **`category.create=epmfs`** (Existing Path, Most Free Space).
 
-The default policy is category.create=pfrd: pfrd prioritizes placement to branches based on free space (percentage wise) without overloading a specific branch as mfs, lus, or other policies could when a singular branch has significantly more free space (from mergerfs docs). This is the least error prone setup for most setups.
+The default policy is **`category.create=pfrd`**: pfrd prioritizes placement to branches based on free space (percentage wise) without overloading a specific branch as mfs, lus, or other policies could when a singular branch has significantly more free space (from mergerfs docs). This is the least error prone setup for most setups.
 
 Here's how it works: when mergerfs needs to write a new file, it looks at which drives already have the destination folder and writes to the one with the most free space among those.
 
