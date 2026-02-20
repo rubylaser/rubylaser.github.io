@@ -139,6 +139,7 @@ Below is the complete, current version of the script as described in this post.
 
 ⚠️ This is long by design. The verbosity is intentional. Hopefully, with the comments, you'll be able to follow what it's doing.
 
+{% raw %}
 ```bash
 #!/usr/bin/env bash
 
@@ -1681,6 +1682,8 @@ main() {
 # Execute main function
 main "$@"
 ```
+{% endraw %}
+
 (**Editor note:** paste the full script here exactly as-is. Just modify the values at the top.)
 
 ## Final Thoughts
