@@ -1688,4 +1688,4 @@ SnapRAID is incredibly powerful, but it assumes the operator knows what they’r
 
 If you adapt it, steal from it, or improve it, that’s a win. Just please let me know! 🤓
 
-Happy scrubbing!
+Happy scrubbing! :)
