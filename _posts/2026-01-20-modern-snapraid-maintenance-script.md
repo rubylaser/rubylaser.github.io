@@ -495,7 +495,7 @@ run_cmd() {
 # DOCKER SERVICE MANAGEMENT
 #######################################################################
 
-# Pause configured Docker services to prevent file changes during sync
+# Pause configured Docker services to prevent file changes during SnapRAID sync
 service_pause() {
   local s running
   for s in "${SERVICES[@]}"; do
@@ -1688,4 +1688,4 @@ SnapRAID is incredibly powerful, but it assumes the operator knows what they’r
 
 If you adapt it, steal from it, or improve it, that’s a win. Just please let me know! 🤓
 
-Happy scrubbing! :)
+Happy scrubbing!
