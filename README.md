@@ -50,5 +50,3 @@ Please see the __theme's docs__ for detailed configuration and usage information
 ## License
 
 This work is published under __MIT__ License.
-
-Feel free to adjust the wording!
