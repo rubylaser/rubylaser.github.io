@@ -163,7 +163,7 @@ Below is the complete, current version of the script as described in this post.
 # USER CONFIGURATION  #
 #######################
 
-EMAIL_ADDRESS="youremail@gmail.com"
+EMAIL_ADDRESS="reed.zack@gmail.com"
 
 # Set the threshold of deleted files to stop the sync job from running.
 DEL_THRESHOLD=100
@@ -222,8 +222,8 @@ LOG_DIR="/var/log/snapraid"
 
 # Healthchecks integration (optional)
 HEALTHCHECKS_ALERTS=1
-HEALTHCHECKS_ID="58fdccd-28f1-60cd-9624-5d28a091d1a8"
-HEALTHCHECKS_URL="https://healthchecks.yourdomain.com/ping/"
+HEALTHCHECKS_ID="588000cd-28a1-40dc-9624-6e28a091d1a8"
+HEALTHCHECKS_URL="https://healthchecks.home.zackreed.me/ping/"
 
 HC_TIMEOUT_SECS=10
 HC_RETRIES=3
@@ -281,7 +281,7 @@ HC_SENT_START=0
 #######################################################################
 
 # Simple logging wrapper
-log() { 
+log() {
   printf '%s\n' "$*"
 }
 
@@ -292,7 +292,7 @@ die() {
 }
 
 # Check if a command exists
-have_cmd() { 
+have_cmd() {
   command -v "$1" >/dev/null 2>&1
 }
 
@@ -385,7 +385,7 @@ hc_send() {
   url="$(hc_ping_url "$suffix")"
 
   local result=0
-  
+
   # Use curl if available, otherwise wget
   if [[ "$HC_TOOL" == "curl" ]]; then
     if [[ -n "$body" ]]; then
@@ -405,12 +405,12 @@ hc_send() {
       wget -qO- --timeout="$HC_TIMEOUT_SECS" --tries="$HC_RETRIES" "$url" >/dev/null 2>&1 || result=$?
     fi
   fi
-  
+
   # Log ping failures for debugging (non-fatal)
   if (( result != 0 )); then
     log "DEBUG: Healthcheck ping failed (non-fatal): $url" >&2
   fi
-  
+
   return 0
 }
 
@@ -557,19 +557,19 @@ restore_services() {
 # Cleanup function - runs on script exit (normal or interrupted)
 cleanup() {
   local exit_code=$?
-  
+
   # Always try to restore services
   restore_services || {
     log "WARNING: Failed to restore services during cleanup" >&2
     # Don't overwrite a non-zero exit code with service restoration failure
     (( exit_code == 0 )) && exit_code=1
   }
-  
+
   # Clean up lock file on successful exit
   if (( exit_code == 0 )) && [[ -f "$LOCK_FILE" ]]; then
     rm -f "$LOCK_FILE" 2>/dev/null || true
   fi
-  
+
   exit $exit_code
 }
 
@@ -587,16 +587,16 @@ parse_snapraid_conf() {
     awk '
       # Skip blank lines and comments
       /^[[:space:]]*($|#|;)/ { next }
-      
+
       # Match "content" keyword (standard SnapRAID format)
-      $1 == "content" && $2 != "" { 
-        print $2 
+      $1 == "content" && $2 != "" {
+        print $2
       }
     ' "$SNAPRAID_CONF"
   )
-  
+
   ((${#CONTENT_FILES[@]} > 0)) || die "Could not determine content files from $SNAPRAID_CONF"
-  
+
   # Use the first content file as primary
   CONTENT_FILE="${CONTENT_FILES[0]}"
 
@@ -607,14 +607,14 @@ parse_snapraid_conf() {
         gsub(/^[[:space:]]+|[[:space:]]+$/, "", s)
         return s
       }
-      
+
       # Skip blank lines and comments
       /^[[:space:]]*($|#|;)/ { next }
-      
+
       # Match parity keywords: parity, 2-parity, 3-parity, ..., z-parity
       $1 == "parity" || $1 ~ /^([2-6]|z)-parity$/ {
         if ($2 == "") next
-        
+
         # Handle comma-separated paths in $2
         n = split($2, a, ",")
         for (i = 1; i <= n; i++) {
@@ -624,14 +624,14 @@ parse_snapraid_conf() {
       }
     ' "$SNAPRAID_CONF"
   )
-  
+
   ((${#PARITY_FILES[@]} > 0)) || die "Could not determine parity files from $SNAPRAID_CONF"
 }
 
 # Verify that all content and parity files exist
 sanity_check() {
   local cf pf
-  
+
   log "Verifying all content files are present."
   for cf in "${CONTENT_FILES[@]}"; do
     [[ -e "$cf" ]] || die "Content file not found: $cf"
@@ -641,7 +641,7 @@ sanity_check() {
   for pf in "${PARITY_FILES[@]}"; do
     [[ -e "$pf" ]] || die "Parity file not found: $pf"
   done
-  
+
   log "All content and parity files found. Continuing..."
 }
 
@@ -676,7 +676,7 @@ get_counts() {
   MOVE_COUNT="$(awk '/^[[:space:]]*[0-9]+[[:space:]]+moved$/      {print $1; exit}' <<<"$diff_block" || true)"
   COPY_COUNT="$(awk '/^[[:space:]]*[0-9]+[[:space:]]+copied$/     {print $1; exit}' <<<"$diff_block" || true)"
   RESTORED_COUNT="$(awk '/^[[:space:]]*[0-9]+[[:space:]]+restored$/ {print $1; exit}' <<<"$diff_block" || true)"
-  
+
   # Ensure restored count defaults to 0 if not found
   RESTORED_COUNT="${RESTORED_COUNT:-0}"
 }
@@ -736,7 +736,7 @@ chk_sync_warn() {
 # Check for and fix files with zero sub-second timestamps
 chk_zero() {
   run_cmd "TOUCH_CHECK" "$SNAPRAID_BIN" status
-  
+
   local timelog
   timelog="$(grep -E 'You have [1-9][0-9]* files with zero sub-second timestamp\.' "$TMP_OUTPUT" | tail -n 1 || true)"
 
@@ -803,22 +803,22 @@ summarize_diff_for_email() {
   # Use awk to keep only head/tail of file-change lines and add summary
   awk -v head="$DIFF_LIST_HEAD" -v tail="$DIFF_LIST_TAIL" '
     # Helper function to identify file-change action lines
-    function is_action(line) { 
-      return (line ~ /^(add|remove|update|move|copy|restore)[[:space:]]+/) 
-    }
-    
-    # Extract the action type from a line
-    function action_type(line,   a) { 
-      split(line, a, /[[:space:]]+/)
-      return a[1] 
+    function is_action(line) {
+      return (line ~ /^(add|remove|update|move|copy|restore)[[:space:]]+/)
     }
 
-    BEGIN { 
+    # Extract the action type from a line
+    function action_type(line,   a) {
+      split(line, a, /[[:space:]]+/)
+      return a[1]
+    }
+
+    BEGIN {
       in_block=0
       action_count=0
       tail_length=0
       tail_start=1
-      
+
       # Counters for each action type
       add_count=0
       remove_count=0
@@ -829,12 +829,12 @@ summarize_diff_for_email() {
     }
 
     # Detect start of DIFF block
-    /__SNAPRAID_DIFF_BEGIN__/ { 
+    /__SNAPRAID_DIFF_BEGIN__/ {
       in_block=1
       print
-      next 
+      next
     }
-    
+
     # Detect end of DIFF block - output tail buffer and summary
     /__SNAPRAID_DIFF_END__/ {
       if (in_block) {
@@ -846,7 +846,7 @@ summarize_diff_for_email() {
                  omitted, add_count, remove_count, update_count, move_count, copy_count, restore_count
           print ""
         }
-        
+
         # Output the tail buffer
         for (i=1; i<=tail_length; i++) {
           idx = tail_start + i - 1
@@ -861,15 +861,15 @@ summarize_diff_for_email() {
 
     {
       # Pass through non-DIFF content unchanged
-      if (!in_block) { 
+      if (!in_block) {
         print
-        next 
+        next
       }
 
       # Handle file-change action lines
       if (is_action($0)) {
         action_count++
-        
+
         # Track action type
         t = action_type($0)
         if (t=="add") add_count++
@@ -880,20 +880,20 @@ summarize_diff_for_email() {
         else if (t=="restore") restore_count++
 
         # Print first N lines directly
-        if (action_count <= head) { 
+        if (action_count <= head) {
           print
-          next 
+          next
         }
 
         # Store last N lines in circular buffer
         if (tail > 0) {
-          if (tail_length < tail) { 
+          if (tail_length < tail) {
             tail_length++
-            pos=tail_length 
-          } else { 
+            pos=tail_length
+          } else {
             pos=tail_start
             tail_start++
-            if (tail_start > tail) tail_start=1 
+            if (tail_start > tail) tail_start=1
           }
           tail_buffer[pos] = $0
         }
@@ -942,39 +942,39 @@ beautify_email_output() {
       -v warn_thresh="${SYNC_WARN_THRESHOLD}" \
       -v chk_fail="${CHK_FAIL}" \
       -v do_sync="${DO_SYNC}" '
-    
+
     # Helper functions for formatted output
-    function hr() { 
-      print "============================================================" 
+    function hr() {
+      print "============================================================"
     }
-    
-    function h1(t) { 
+
+    function h1(t) {
       print ""
       hr()
       print t
       hr()
       print ""
     }
-    
-    function h2(t) { 
+
+    function h2(t) {
       print ""
       print "=============="
       print t
       print "=============="
       print ""
     }
-    
+
     # ASCII box drawing for critical warnings
-    function box_start() { 
-      print "╔════════════════════════════════════════════════════════════╗" 
+    function box_start() {
+      print "╔════════════════════════════════════════════════════════════╗"
     }
-    
-    function box_line(t) { 
-      printf "║ %-58s ║\n", t 
+
+    function box_line(t) {
+      printf "║ %-58s ║\n", t
     }
-    
-    function box_end() { 
-      print "╚════════════════════════════════════════════════════════════╝" 
+
+    function box_end() {
+      print "╚════════════════════════════════════════════════════════════╝"
     }
 
     BEGIN {
@@ -1024,14 +1024,14 @@ beautify_email_output() {
       pause_last_line = 0
       blank_count = 0
       just_had_verified = 0
-      
+
       # Scrub stats tracking
       scrub_last = ""
       scrub_oldest = ""
       scrub_median = ""
       scrub_newest = ""
       scrub_errors = ""
-      
+
       # SMART data tracking
       smart_disk_count = 0
       smart_data_count = 0
@@ -1047,13 +1047,13 @@ beautify_email_output() {
     }
 
     # REMOVE ALL INTERNAL MARKERS - these should never appear in the email
-    /^__SNAPRAID_[A-Z0-9_]+_(BEGIN|END)__/ { 
-      next 
+    /^__SNAPRAID_[A-Z0-9_]+_(BEGIN|END)__/ {
+      next
     }
-    
+
     # Remove internal job timestamps
-    /^###[A-Z0-9_]+ \[/ { 
-      next 
+    /^###[A-Z0-9_]+ \[/ {
+      next
     }
 
     # Group service pause messages into a dedicated section
@@ -1076,7 +1076,7 @@ beautify_email_output() {
       print "  " $0
       next
     }
-    
+
     # Add section header after service pause messages when we see "Self test..."
     /^Self test\.\.\./ {
       # If we just finished showing service pause messages, add a section header
@@ -1092,7 +1092,7 @@ beautify_email_output() {
       in_status_report = 1
       next
     }
-    
+
     # End status report when we hit "The oldest block was scrubbed" line
     in_status_report == 1 && /^The oldest block was scrubbed/ {
       # Extract scrub statistics for simplified summary
@@ -1105,25 +1105,25 @@ beautify_email_output() {
       in_scrub_section = 1
       next
     }
-    
+
     # Skip all lines within the status report
-    in_status_report == 1 { 
-      next 
+    in_status_report == 1 {
+      next
     }
-    
+
     # Capture scrub error info if present
     in_scrub_section == 1 && /^No error detected/ {
       scrub_errors = "✓ No errors detected"
       in_scrub_section = 0
       next
     }
-    
+
     in_scrub_section == 1 && /error/ {
       scrub_errors = "⚠ Errors detected - check full log"
       in_scrub_section = 0
       next
     }
-    
+
     # End scrub section after a few lines if no error line found
     in_scrub_section == 1 {
       scrub_line_count++
@@ -1161,13 +1161,13 @@ beautify_email_output() {
       in_wait_chart = 1
       next
     }
-    
+
     # End of wait time chart
     in_wait_chart == 1 && /wait time \(total, less is better\)/ {
       in_wait_chart = 0
       next
     }
-    
+
     in_wait_chart == 1 {
       next
     }
@@ -1178,25 +1178,25 @@ beautify_email_output() {
       smart_in_header = 1
       next
     }
-    
+
     # Skip SMART header lines
     in_smart_report == 1 && smart_in_header == 1 && /^[[:space:]]*$/ {
       next
     }
-    
+
     in_smart_report == 1 && smart_in_header == 1 && /Temp  Power   Error   FP Size/ {
       next
     }
-    
+
     in_smart_report == 1 && smart_in_header == 1 && /C OnDays   Count        TB  Serial/ {
       next
     }
-    
+
     in_smart_report == 1 && smart_in_header == 1 && /^[[:space:]]*-+[[:space:]]*$/ {
       smart_in_header = 0
       next
     }
-    
+
     # Parse SMART data lines
     in_smart_report == 1 && !smart_in_header && /^[[:space:]]+[0-9-]+[[:space:]]+/ {
       # Extract fields: Temp, Power, Error, FP, Size, Serial, Device, Disk
@@ -1208,9 +1208,9 @@ beautify_email_output() {
       serial = $6
       device = $7
       disk = $8
-      
+
       smart_disk_count++
-      
+
       # Categorize disk
       if (disk ~ /^d[0-9]+$/) {
         smart_data_count++
@@ -1219,11 +1219,11 @@ beautify_email_output() {
       } else {
         smart_other_count++
       }
-      
+
       # Check for warnings
       has_warning = 0
       warning_msg = ""
-      
+
       # High failure probability (>50%)
       if (fp ~ /^[0-9]+%$/) {
         fp_val = fp
@@ -1235,7 +1235,7 @@ beautify_email_output() {
           warning_msg = warning_msg "High failure risk (" fp ")"
         }
       }
-      
+
       # High temperature (>40°C)
       if (temp ~ /^[0-9]+$/ && temp + 0 > 40) {
         smart_high_temp_count++
@@ -1243,13 +1243,13 @@ beautify_email_output() {
         if (warning_msg != "") warning_msg = warning_msg " | "
         warning_msg = warning_msg "High temp (" temp "°C)"
       }
-      
+
       # Track max temp
       if (temp ~ /^[0-9]+$/ && temp + 0 > smart_max_temp) {
         smart_max_temp = temp
         smart_max_temp_disk = disk
       }
-      
+
       # Errors present
       if (error ~ /^[0-9]+$/ && error + 0 > 0) {
         smart_error_count++
@@ -1257,7 +1257,7 @@ beautify_email_output() {
         if (warning_msg != "") warning_msg = warning_msg " | "
         warning_msg = warning_msg error " errors"
       }
-      
+
       # Store warning if present
       if (has_warning) {
         smart_warning_count++
@@ -1267,20 +1267,20 @@ beautify_email_output() {
           smart_warnings[smart_warning_count] = smart_warnings[smart_warning_count] "\n      " warning_msg
         }
       }
-      
+
       next
     }
-    
+
     # Capture overall failure probability
     in_smart_report == 1 && /^Probability that at least one disk/ {
       if (match($0, /is ([0-9]+)%/, arr)) {
         smart_overall_fp = arr[1]
       }
       in_smart_report = 0
-      
+
       # Output SMART summary
       h2("SMART Summary")
-      
+
       printf "  Disks monitored: %d total", smart_disk_count
       if (smart_data_count > 0 || smart_parity_count > 0 || smart_other_count > 0) {
         printf " ("
@@ -1302,7 +1302,7 @@ beautify_email_output() {
       }
       print ""
       print ""
-      
+
       # Show warnings or all-clear
       if (smart_warning_count > 0) {
         if (smart_high_fp_count > 0) {
@@ -1314,7 +1314,7 @@ beautify_email_output() {
           }
           print ""
         }
-        
+
         if (smart_high_temp_count > 0) {
           print "  ⚠ Temperature warnings (>40°C):"
           for (i = 1; i <= smart_warning_count; i++) {
@@ -1324,7 +1324,7 @@ beautify_email_output() {
           }
           print ""
         }
-        
+
         if (smart_error_count > 0) {
           print "  ⚠ Disks with errors:"
           for (i = 1; i <= smart_warning_count; i++) {
@@ -1338,7 +1338,7 @@ beautify_email_output() {
         print "  ✓ All disks healthy"
         print ""
       }
-      
+
       # Always show max temp and overall failure probability
       if (smart_max_temp > 0) {
         printf "  Highest temp: %d°C", smart_max_temp
@@ -1347,16 +1347,16 @@ beautify_email_output() {
         }
         print ""
       }
-      
+
       if (smart_overall_fp != "") {
         printf "  Overall failure probability: %s%%", smart_overall_fp
         print " (at least one disk in next year)"
       }
-      
+
       print ""
       next
     }
-    
+
     # Skip remaining SMART report lines
     in_smart_report == 1 {
       next
@@ -1385,27 +1385,27 @@ beautify_email_output() {
 
     # Remove the horizontal line separators from the log
     /^----------------------------------------$/ { next }
-    
+
     # Remove standalone "Everything OK" lines (redundant with our summaries)
     /^Everything OK$/ { next }
 
     # Preserve the file-change omission message with better spacing
-    /^\.\.\. \([0-9]+ file-change lines omitted/ { 
+    /^\.\.\. \([0-9]+ file-change lines omitted/ {
       # Ensure single blank line before
       if (blank_count == 0) print ""
       print $0
       print ""
       blank_count = 1
-      next 
+      next
     }
-    
+
     # Reduce excessive spacing around file operations (add/remove/update lines)
     /^(add|remove|update|move|copy|restore)[[:space:]]+/ {
       blank_count = 0
       print
       next
     }
-    
+
     # Reduce spacing after "Verified" lines and similar status messages
     /^(Saving state to|Verified|Scanned|Using|Initializing|Resizing|Syncing|Scrubbing|Selecting|Comparing)/ {
       # Skip if we just had this type of message
@@ -1445,12 +1445,12 @@ send_mail() {
 # Save the full unformatted log to disk for reference
 persist_full_log() {
   mkdir -p "$LOG_DIR" || die "Unable to create log dir: $LOG_DIR"
-  
+
   local ts host
   ts="$(date +'%Y%m%d-%H%M%S')"
   host="$(hostname)"
   FULL_LOG_FILE="${LOG_DIR}/snapraid-${host}-${ts}.log"
-  
+
   cp -f "$TMP_OUTPUT" "$FULL_LOG_FILE" || die "Unable to write full log to: $FULL_LOG_FILE"
 }
 
@@ -1481,11 +1481,11 @@ main() {
   hc_start
 
   log "SnapRAID Script Job started [$(date)]"
-  
+
   #####################################################################
   # PREPROCESSING
   #####################################################################
-  
+
   section "##Preprocessing"
 
   # Pause Docker services to prevent file changes during sync
@@ -1500,7 +1500,7 @@ main() {
   #####################################################################
   # PROCESSING
   #####################################################################
-  
+
   section "##Processing"
 
   # Check for and fix zero sub-second timestamp files
@@ -1535,14 +1535,14 @@ main() {
   if [[ -z "${DEL_COUNT:-}" || -z "${ADD_COUNT:-}" || -z "${MOVE_COUNT:-}" || -z "${COPY_COUNT:-}" || -z "${UPDATE_COUNT:-}" ]]; then
     log "**ERROR** Failed to extract change counts from DIFF output. Unable to proceed safely."
     persist_full_log
-    
+
     if [[ -n "${EMAIL_ADDRESS:-}" ]]; then
       SUBJECT="${EMAIL_SUBJECT_PREFIX} WARNING - Unable to proceed with SYNC/SCRUB job(s). Check DIFF job output."
       summarize_diff_for_email
       beautify_email_output
       send_mail
     fi
-    
+
     hc_finish_fail 2
     exit 1
   fi
@@ -1562,12 +1562,12 @@ main() {
     else
       # Check deletion threshold
       chk_del
-      
+
       # Only check update threshold if deletion check passed
       if (( CHK_FAIL == 0 )); then
         chk_updated
       fi
-      
+
       # If either threshold was exceeded, check if we should force sync anyway
       if (( CHK_FAIL == 1 )); then
         chk_sync_warn
@@ -1586,7 +1586,7 @@ main() {
     run_cmd "SYNC" "$SNAPRAID_BIN" sync -q
     SYNC_RC=$?
     JOBS_DONE="${JOBS_DONE} + SYNC"
-    
+
     # Clear warning counter after successful sync authorization
     [[ -e "$SYNC_WARN_FILE" ]] && rm -f "$SYNC_WARN_FILE"
   fi
@@ -1624,7 +1624,7 @@ main() {
   #####################################################################
   # POSTPROCESSING
   #####################################################################
-  
+
   section "##Postprocessing"
 
   #
@@ -1652,11 +1652,11 @@ main() {
   restore_services
 
   log "All jobs completed. [$(date)]"
-  
+
   #####################################################################
   # REPORTING
   #####################################################################
-  
+
   # Save full log to disk
   persist_full_log
 
