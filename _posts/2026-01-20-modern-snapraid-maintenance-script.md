@@ -164,7 +164,7 @@ Below is the complete, current version of the script as described in this post.
 # USER CONFIGURATION  #
 #######################
 
-EMAIL_ADDRESS="youruser@gmail.com"
+EMAIL_ADDRESS="yourusername@gmail.com"
 
 # Set the threshold of deleted files to stop the sync job from running.
 DEL_THRESHOLD=100
