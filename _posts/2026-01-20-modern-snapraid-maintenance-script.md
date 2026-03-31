@@ -19,6 +19,8 @@ The goal wasn’t to add features for the sake of it. The goal was to continue t
 
 If you’re already using my older Split Parity script, this is a **drop-in conceptual replacement** with much stronger guardrails for things like content/parity file naming.
 
+**NOTE:** Andrea, the author of SnapRAID, just released version 14.0 along with the daemon. It is provides support for most of what this script does.  So, I've written a post about it. You can view it [here](https://zackreed.me/snapraid-14.0-and-new-daemon). 
+
 ---
 
 ## What This Script Handles
