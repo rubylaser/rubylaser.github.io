@@ -127,7 +127,7 @@ Here are the prompts I used, in order:
 
 ```
 Create a single HTML file called weather.html. Display a weather dashboard
-titled "Weather Dashboard" with 4 hardcoded city cards: St. Johns MI (72°F,
+titled "Weather Dashboard" with 4 hardcoded city cards: Lansing MI (72°F,
 Partly Cloudy, Wind: 8 mph, Humidity: 55%), Detroit MI (68°F, Sunny, Wind: 5 mph,
 Humidity: 45%), Chicago IL (61°F, Overcast, Wind: 14 mph, Humidity: 70%), and
 New York NY (75°F, Rainy, Wind: 11 mph, Humidity: 80%). Style it with embedded
@@ -160,7 +160,7 @@ It looks like this in practice
   - White sans-serif typography.
   - Responsive flexbox layout for the cards.
   - Semi-transparent white backgrounds for each card with a subtle blur effect.
-  - The four specified cities (St. Johns, Detroit, Chicago, and New York) with their respective weather details.
+  - The four specified cities (Lansing, Detroit, Chicago, and New York) with their respective weather details.
 
 ✻ Sautéed for 1m 36s
 
@@ -180,9 +180,9 @@ It looks like this in practice
        63 +    <h1 id="title">Weather Dashboard</h1>
        64
        65 -    <div class="dashboard">
-       66 -        <!-- St. Johns MI -->
+       66 -        <!-- Lansing MI -->
        67 -        <div class="card">
-       68 -            <span class="city-name">St. Johns, MI</span>
+       68 -            <span class="city-name">Lansing, MI</span>
        69 -            <div class="temp">72°F</div>
        70 -            <div class="details">
        71 -                Partly Cloudy<br>
@@ -206,7 +206,7 @@ It looks like this in practice
        86 -        </div>
        69 +    <script>
        70 +        const weatherData = [
-       71 +            { city: "St. Johns", state: "MI", temp: 72, condition: "Partly Cloudy", wind: 8, humidity: 55 },
+       71 +            { city: "Lansing", state: "MI", temp: 72, condition: "Partly Cloudy", wind: 8, humidity: 55 },
        72 +            { city: "Detroit", state: "MI", temp: 68, condition: "Sunny", wind: 5, humidity: 45 },
        73 +            { city: "Chicago", state: "IL", temp: 61, condition: "Overcast", wind: 14, humidity: 70 },
        74 +            { city: "New York", state: "NY", temp: 75, condition: "Rainy", wind: 11, humidity: 80 }
@@ -293,8 +293,8 @@ should clear and show all cards when the input is emptied.
 ### Task 4 — Fetch Live Data from Open-Meteo
 
 ```
-Replace the hardcoded St. Johns, MI card with live data fetched from the
-Open-Meteo API. St. Johns, MI is at latitude 43.0042, longitude -84.5569.
+Replace the hardcoded Lansing, MI card with live data fetched from the
+Open-Meteo API. Lansing, MI is at latitude 42.732536, longitude -84.555534.
 Use the Open-Meteo forecast API endpoint (https://api.open-meteo.com/v1/forecast)
 with these parameters: current=temperature_2m,relative_humidity_2m,
 wind_speed_10m,weather_code and temperature_unit=fahrenheit&wind_speed_unit=mph.
@@ -308,7 +308,7 @@ fetch fails. The other 3 city cards remain hardcoded as before.
 ### Task 5 — Searchable City via Geocoding
 
 ```
-Replace the hardcoded St. Johns, MI card with a search bar + "Get Weather" button
+Replace the hardcoded Lansing, MI card with a search bar + "Get Weather" button
 at the top of the page. When the user submits a city name, first call the
 Open-Meteo Geocoding API (https://geocoding-api.open-meteo.com/v1/search?name=CITY
 &count=1&language=en&format=json) to resolve the city name to a latitude, longitude,
