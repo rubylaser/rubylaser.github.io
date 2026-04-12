@@ -4,7 +4,7 @@ title: "Running Claude Code with a Local Model via LM Studio"
 date: 2026-04-11
 categories: [homelab, ai, self-hosting]
 tags: [claude-code, lm-studio, gemma, local-ai, javascript]
-image: /wp-content/uploads/images/claude_code.jpg
+image: /wp-content/uploads/images/claude-code.jpg
 ---
 
 If you run a homelab and you've been curious about using AI coding assistants without sending your code to the cloud, this post is for you. I recently got Claude Code running against a local model through LM Studio on my MacBook Pro, and I want to walk through exactly how I set it up — including the gotchas I hit along the way.
