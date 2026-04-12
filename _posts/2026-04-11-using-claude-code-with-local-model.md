@@ -25,6 +25,15 @@ This isn't about replacing Claude's hosted models for serious work. It's about l
 
 Download LM Studio from [lmstudio.ai](https://lmstudio.ai) and install your model of choice. For this project I'm using **Gemma 4 26B A4B** (`gemma-4-26b-a4b-it`), which is Google's mixture-of-experts variant — the `a4b` means only ~4 billion parameters are active per token despite the 26B total parameter count. It runs fast and handles code well.
 
+Hugging Face Suggests these settings:
+```
+temperature=1.0
+top_p=0.95
+top_k=64
+```
+
+I set the context window to 106433 (again, I have 64GB of RAM, and this uses about 90% of it).
+
 Once your model is loaded, start the LM Studio local server. It runs on `http://localhost:1234` by default and exposes an OpenAI-compatible API endpoint.
 
 ---
@@ -79,7 +88,7 @@ cd your-project
 claude --model gemma-4-26b-a4b-it
 ```
 
-> **Model name matters.** Make sure the name you pass with `--model` exactly matches the model identifier shown in LM Studio. I initially had a typo (`gemma-4-31b-it`) which doesn't exist — it silently failed rather than throwing a clean error.
+> **Model name matters.** Make sure the name you pass with `--model` exactly matches the model identifier shown in LM Studio.
 
 ---
 
@@ -378,7 +387,7 @@ Running Claude Code against a local model works, but it's not the same experienc
 
 **Tool-use reliability varies.** Claude Code was designed around Anthropic's own models and their specific tool-use format. Local models may not follow the exact JSON schema Claude Code expects, which can cause file edits to silently fail or the model to ignore bash tool output. If something seems off, this is the first thing to suspect.
 
-**Context window size ≠ smarter model.** Increasing the context window lets the model see more of your project at once, but it doesn't improve reasoning quality. For single-file tasks like this project, 8K–16K context is plenty. Pushing to 32K+ burns more memory without meaningful benefit, and many models have degraded attention at the far edges of a long context window anyway.
+**Context window size ≠ smarter model.** Increasing the context window lets the model see more of your project at once, but it doesn't improve reasoning quality. For single-file tasks like this project, 8K–16K context is plenty. Pushing to 32K+ burns more memory without meaningful benefit. Longer context generally leads to better results, up to a certain point.
 
 **Stepped prompts work better than one-shot here.** With a hosted Claude model you can often describe a multi-step project in one prompt and get a clean result. With a local model, shorter scoped tasks produce more reliable output. Build each task, verify it, then move to the next. This is better practice anyway if you're trying to learn from the process.
 
