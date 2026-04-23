@@ -414,7 +414,7 @@ If `/storage` didn’t mount, that’s something you want to notice immediately.
 
 ## Step 8: install SnapRAID (v14.4 as of now)
 
-SnapRAID’s current release is 14.4. **Note: [Check out my post on the 14.0 and new SnapRAID daemon](https://zackreed.me/posts/snapraid-14.0-and-new-daemon/)**
+SnapRAID’s current release is 14.4. **Note: [Check out my post on the new 14.x version of SnapRAId and new Controller daemon](https://zackreed.me/posts/snapraid-14.0-and-new-daemon/)**
 
 You can build from source ([which is what my older guide shows](https://zackreed.me/setting-up-snapraid-on-ubuntu/)). I’ll keep that approach because it’s consistent and keeps you current.
 
