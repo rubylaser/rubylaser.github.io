@@ -412,9 +412,9 @@ With this setup, it’s better for `/storage` to fail loudly than to silently di
 
 If `/storage` didn’t mount, that’s something you want to notice immediately.
 
-## Step 8: install SnapRAID (v13.0 as of now)
+## Step 8: install SnapRAID (v14.4 as of now)
 
-SnapRAID’s current release is 13.0. 
+SnapRAID’s current release is 14.4. **Note: [Check out my post on the 14.0 and new SnapRAID daemon](https://zackreed.me/posts/snapraid-14.0-and-new-daemon/)**
 
 You can build from source ([which is what my older guide shows](https://zackreed.me/setting-up-snapraid-on-ubuntu/)). I’ll keep that approach because it’s consistent and keeps you current.
 
@@ -422,16 +422,16 @@ You can build from source ([which is what my older guide shows](https://zackreed
 cd /tmp
 
 # replace this with the latest tag if needed
-wget https://github.com/amadvance/snapraid/releases/download/v13.0/snapraid-13.0.tar.gz
-tar xzf snapraid-13.0.tar.gz
-cd snapraid-13.0
+wget https://github.com/amadvance/snapraid/releases/download/v14.4/snapraid-14.4.tar.gz
+tar xzf snapraid-14.4.tar.gz
+cd snapraid-14.4
 
 ./configure
 make -j"$(nproc)"
 make check
 make install
 cd ..
-rm -rf snapraid-13.0*
+rm -rf snapraid-14.4*
 ```
 
 Verify:
