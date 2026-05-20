@@ -26,5 +26,3 @@ Heatmaps gave me perspective on my routes. It was obvious where I feel most comf
 What I like about hosting this myself is the control. I can add the stats I care about, save snapshots of charts, and even drop them into posts like this one. It helps me write about my rides with more detail and keeps me accountable to what I set out to do each season.  
 
 Looking ahead, I want to keep using these numbers to push toward my century goal. The stats are not just about looking back. They are about shaping the next ride and the one after that. Having a clearer view of my distance, elevation, and effort helps me keep moving forward.
-
-You can view my dashboard [here](https://strava.home.zackreed.me).
