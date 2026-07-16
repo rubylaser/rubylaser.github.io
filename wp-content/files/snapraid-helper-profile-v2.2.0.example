@@ -1,0 +1,165 @@
+# /etc/snapraid-helper.d/media.env
+#
+# Trusted Bash profile for one SnapRAID array.
+# Recommended ownership and permissions:
+#   sudo chown root:root /etc/snapraid-helper.d/media.env
+#   sudo chmod 600 /etc/snapraid-helper.d/media.env
+
+SNAPRAID_CONF="/etc/snapraid-media.conf"
+
+# Override these only when binaries are installed elsewhere.
+SNAPRAID_BIN="/usr/local/bin/snapraid"
+MAIL_BIN="/usr/bin/mutt"
+DOCKER_BIN="/usr/bin/docker"
+
+EMAIL_ADDRESS="yourusername@gmail.com"
+EMAIL_SUBJECT_PREFIX="Media SnapRAID"
+
+DEL_THRESHOLD=100
+UP_THRESHOLD=500
+
+# -1 = never force; 0 = force immediately; N = force on Nth breached run.
+SYNC_WARN_THRESHOLD=-1
+
+SCRUB_PERCENT=3
+SCRUB_AGE=10
+SMART_LOG=1
+SPINDOWN_DISKS=0
+
+MANAGE_SERVICES=1
+REQUIRE_ALL_SERVICES_PAUSED=1
+SERVICES=(sabnzbd sonarr radarr lidarr)
+
+FAIL_FAST=1
+SUMMARIZE_DIFF_EMAIL=1
+DIFF_LIST_HEAD=20
+DIFF_LIST_TAIL=20
+
+LOG_DIR="/var/log/snapraid-helper"
+STATE_DIR="/var/lib/snapraid-helper"
+LOCK_DIR="/run/lock/snapraid-helper"
+LOG_RETENTION_DAYS=90
+
+HEALTHCHECKS_ALERTS=1
+HEALTHCHECKS_URL="https://healthchecks.example.com/ping/"
+HEALTHCHECKS_ID="replace-with-a-unique-id-for-this-array"
+HC_TIMEOUT_SECS=10
+HC_RETRIES=3
+
+# Optional native ntfy notifications for this array/profile.
+# Publish to either ntfy.sh or a self-hosted ntfy server.
+NTFY_ALERTS=0
+NTFY_URL="https://ntfy.example.com"
+NTFY_TOPIC="snapraid-media"
+
+# Authentication: prefer a token. Leave all fields empty for a public topic.
+NTFY_TOKEN=""
+NTFY_USERNAME=""
+NTFY_PASSWORD=""
+
+# all      = send healthy and problem results
+# problems = attention, sync-blocked, critical, and failed results
+# failures = sync-blocked, critical, and failed results only
+# off      = disable delivery even if NTFY_ALERTS=1
+NTFY_NOTIFY_LEVEL="problems"
+NTFY_TIMEOUT_SECS=10
+NTFY_RETRIES=3
+NTFY_CLICK_URL=""
+NTFY_MARKDOWN=1
+
+# Optional final summary from the parent after all selected configs/profiles.
+# These are host-level settings. During a multi-profile run, the first profile
+# supplies the summary settings. Use a shared topic for the combined result.
+NTFY_SUMMARY_ALERTS=0
+NTFY_SUMMARY_URL="https://ntfy.example.com"
+NTFY_SUMMARY_TOPIC="snapraid-summary"
+NTFY_SUMMARY_TOKEN=""
+NTFY_SUMMARY_USERNAME=""
+NTFY_SUMMARY_PASSWORD=""
+NTFY_SUMMARY_NOTIFY_LEVEL="all"
+NTFY_SUMMARY_TIMEOUT_SECS=10
+NTFY_SUMMARY_RETRIES=3
+NTFY_SUMMARY_CLICK_URL=""
+
+# Strongly recommended: identify every filesystem that must be mounted before
+# SnapRAID is allowed to operate.
+REQUIRED_MOUNTS=(
+  /mnt/disk1
+  /mnt/disk2
+  /mnt/parity
+)
+
+# Optional stronger validation: verify which source device backs a mountpoint.
+declare -A EXPECTED_MOUNT_SOURCES=(
+  ["/mnt/parity"]="/dev/disk/by-uuid/REPLACE-ME"
+  ["/mnt/disk1"]="/dev/disk/by-uuid/REPLACE-ME"
+  ["/mnt/disk2"]="/dev/disk/by-uuid/REPLACE-ME"
+)
+
+# Email report detail:
+#   summary    = dashboard only
+#   changes    = dashboard plus changed paths
+#   diagnostic = dashboard plus changed paths and a diagnostic excerpt
+#   full       = dashboard plus the complete raw log
+EMAIL_DETAIL_LEVEL="summary"
+EMAIL_DETAIL_ON_WARNING="changes"
+EMAIL_DETAIL_ON_FAILURE="diagnostic"
+
+# HTML is recommended because email clients use proportional fonts for plain text.
+# Use "text" only when the receiving mail client cannot display HTML.
+EMAIL_FORMAT="html"
+# v2.2.0 uses an inversion-safe light palette plus explicit dark-mode CSS.
+# No additional theme setting is required.
+
+# Capacity health policy. This affects report severity only; it does not
+# authorize or block synchronization.
+#
+#   disk = individual SnapRAID disks affect overall health
+#   pool = only the mergerfs/pool path affects overall health
+#   both = both individual disks and the pool affect health
+#   off  = capacity is displayed but does not affect health
+#
+# Recommended for mergerfs users:
+CAPACITY_HEALTH_SOURCE="pool"
+MERGERFS_POOL_PATH="/storage"
+POOL_USAGE_WARN_PERCENT=85
+POOL_USAGE_CRITICAL_PERCENT=95
+
+# Individual branch utilization can still be displayed without turning the
+# report orange when CAPACITY_HEALTH_SOURCE is pool or off.
+DISK_USAGE_WARN_PERCENT=85
+DISK_USAGE_CRITICAL_PERCENT=95
+REPORT_DISK_CAPACITY_WARNINGS=1
+
+DISK_TEMP_WARN_C=40
+DISK_TEMP_CRITICAL_C=50
+SCRUB_AGE_WARN_DAYS=30
+SCRUB_AGE_CRITICAL_DAYS=60
+UNSCRUBBED_WARN_PERCENT=50
+UNSCRUBBED_CRITICAL_PERCENT=80
+# SMART error counters are usually cumulative. "delta" records a baseline and
+# only changes overall health when a count increases on a later run.
+# Options: delta | threshold | off
+SMART_ERROR_HEALTH_MODE="delta"
+SMART_ERROR_WARN_COUNT=1
+SMART_ERROR_DELTA_WARN_COUNT=1
+
+# Show unchanged cumulative counts once in the Drive Overview. They do not
+# affect health or the email subject in delta mode.
+REPORT_HISTORICAL_SMART_ERRORS=1
+
+# Individual failure-probability behavior:
+#   failure-only = critical only at SMART_FAILED_FP_PERCENT (recommended)
+#   warning      = attention at SMART_FP_WARN_PERCENT
+#   off          = display only
+SMART_FP_HEALTH_MODE="failure-only"
+SMART_FP_WARN_PERCENT=10
+SMART_FAILED_FP_PERCENT=100
+
+# Aggregate failure probability increases naturally with the number of disks.
+# Leave informational unless you explicitly want it treated as a warning.
+AGGREGATE_FP_IS_WARNING=0
+
+# Send a warning result to Healthchecks for health findings while retaining a
+# successful process exit code when the automation itself completed normally.
+HEALTH_WARNINGS_FAIL_HEALTHCHECK=1

@@ -36,13 +36,13 @@ If you’re already using my older Split Parity script, this can bea **drop-in c
 
 Download the current script and example profile:
 
-- **[Download SnapRAID Helper 2.1.6](/wp-content/files/snapraid-helper-v2.1.6.sh)**
-- **[Download the example profile](/wp-content/files/snapraid-helper-profile-v2.1.6.example)**
+- **[Download SnapRAID Helper 2.2.0](/wp-content/files/snapraid-helper-v2.2.0.sh)**
+- **[Download the example profile](/wp-content/files/snapraid-helper-profile-v2.2.0.example)**
 
 The version covered by this tutorial should report:
 
 ```bash
-snapraid-helper.sh 2.1.6
+snapraid-helper.sh 2.2.0
 ```
 
 ## What the Script Does
@@ -418,134 +418,172 @@ create:
 Start with the following example:
 
 ```bash
-# /etc/snapraid-helper.d/fileserver.env
+# /etc/snapraid-helper.d/media.env
 #
-# This file is sourced as Bash. Keep it root-owned and prevent untrusted users
-# from modifying it.
+# Trusted Bash profile for one SnapRAID array.
+# Recommended ownership and permissions:
+#   sudo chown root:root /etc/snapraid-helper.d/media.env
+#   sudo chmod 600 /etc/snapraid-helper.d/media.env
 
-SNAPRAID_CONF="/etc/snapraid.conf"
+SNAPRAID_CONF="/etc/snapraid-media.conf"
 
-# Binary locations
+# Override these only when binaries are installed elsewhere.
 SNAPRAID_BIN="/usr/local/bin/snapraid"
 MAIL_BIN="/usr/bin/mutt"
 DOCKER_BIN="/usr/bin/docker"
 
-# Email
-EMAIL_ADDRESS="yourname@example.com"
-EMAIL_SUBJECT_PREFIX="Fileserver SnapRAID"
-EMAIL_FORMAT="html"
+EMAIL_ADDRESS="yourusername@gmail.com"
+EMAIL_SUBJECT_PREFIX="Media SnapRAID"
 
-# Synchronization safety
 DEL_THRESHOLD=100
 UP_THRESHOLD=500
+
+# -1 = never force; 0 = force immediately; N = force on Nth breached run.
 SYNC_WARN_THRESHOLD=-1
 
-# Scrub and postprocessing
 SCRUB_PERCENT=3
 SCRUB_AGE=10
 SMART_LOG=1
 SPINDOWN_DISKS=0
 
-# Docker services
 MANAGE_SERVICES=1
 REQUIRE_ALL_SERVICES_PAUSED=1
-SERVICES=(
-  sabnzbd
-  sonarr
-  radarr
-  lidarr
-)
+SERVICES=(sabnzbd sonarr radarr lidarr)
 
-# Failure behavior
 FAIL_FAST=1
-
-# Email detail
 SUMMARIZE_DIFF_EMAIL=1
 DIFF_LIST_HEAD=20
 DIFF_LIST_TAIL=20
 
-EMAIL_DETAIL_LEVEL="summary"
-EMAIL_DETAIL_ON_WARNING="changes"
-EMAIL_DETAIL_ON_FAILURE="diagnostic"
-
-# Persistent directories
 LOG_DIR="/var/log/snapraid-helper"
 STATE_DIR="/var/lib/snapraid-helper"
 LOCK_DIR="/run/lock/snapraid-helper"
 LOG_RETENTION_DAYS=90
 
-# Healthchecks
-HEALTHCHECKS_ALERTS=0
+HEALTHCHECKS_ALERTS=1
 HEALTHCHECKS_URL="https://healthchecks.example.com/ping/"
-HEALTHCHECKS_ID=""
+HEALTHCHECKS_ID="replace-with-a-unique-id-for-this-array"
 HC_TIMEOUT_SECS=10
 HC_RETRIES=3
-HEALTH_WARNINGS_FAIL_HEALTHCHECK=1
 
-# Capacity-health policy
+# Optional native ntfy notifications for this array/profile.
+# Publish to either ntfy.sh or a self-hosted ntfy server.
+NTFY_ALERTS=0
+NTFY_URL="https://ntfy.example.com"
+NTFY_TOPIC="snapraid-media"
+
+# Authentication: prefer a token. Leave all fields empty for a public topic.
+NTFY_TOKEN=""
+NTFY_USERNAME=""
+NTFY_PASSWORD=""
+
+# all      = send healthy and problem results
+# problems = attention, sync-blocked, critical, and failed results
+# failures = sync-blocked, critical, and failed results only
+# off      = disable delivery even if NTFY_ALERTS=1
+NTFY_NOTIFY_LEVEL="problems"
+NTFY_TIMEOUT_SECS=10
+NTFY_RETRIES=3
+NTFY_CLICK_URL=""
+NTFY_MARKDOWN=1
+
+# Optional final summary from the parent after all selected configs/profiles.
+# These are host-level settings. During a multi-profile run, the first profile
+# supplies the summary settings. Use a shared topic for the combined result.
+NTFY_SUMMARY_ALERTS=0
+NTFY_SUMMARY_URL="https://ntfy.example.com"
+NTFY_SUMMARY_TOPIC="snapraid-summary"
+NTFY_SUMMARY_TOKEN=""
+NTFY_SUMMARY_USERNAME=""
+NTFY_SUMMARY_PASSWORD=""
+NTFY_SUMMARY_NOTIFY_LEVEL="all"
+NTFY_SUMMARY_TIMEOUT_SECS=10
+NTFY_SUMMARY_RETRIES=3
+NTFY_SUMMARY_CLICK_URL=""
+
+# Strongly recommended: identify every filesystem that must be mounted before
+# SnapRAID is allowed to operate.
+REQUIRED_MOUNTS=(
+  /mnt/disk1
+  /mnt/disk2
+  /mnt/parity
+)
+
+# Optional stronger validation: verify which source device backs a mountpoint.
+declare -A EXPECTED_MOUNT_SOURCES=(
+  ["/mnt/parity"]="/dev/disk/by-uuid/REPLACE-ME"
+  ["/mnt/disk1"]="/dev/disk/by-uuid/REPLACE-ME"
+  ["/mnt/disk2"]="/dev/disk/by-uuid/REPLACE-ME"
+)
+
+# Email report detail:
+#   summary    = dashboard only
+#   changes    = dashboard plus changed paths
+#   diagnostic = dashboard plus changed paths and a diagnostic excerpt
+#   full       = dashboard plus the complete raw log
+EMAIL_DETAIL_LEVEL="summary"
+EMAIL_DETAIL_ON_WARNING="changes"
+EMAIL_DETAIL_ON_FAILURE="diagnostic"
+
+# HTML is recommended because email clients use proportional fonts for plain text.
+# Use "text" only when the receiving mail client cannot display HTML.
+EMAIL_FORMAT="html"
+# v2.2.0 uses an inversion-safe light palette plus explicit dark-mode CSS.
+# No additional theme setting is required.
+
+# Capacity health policy. This affects report severity only; it does not
+# authorize or block synchronization.
 #
-# Recommended for mergerfs: judge capacity from the combined pool instead of
-# treating intentionally full branch disks as array-health warnings.
+#   disk = individual SnapRAID disks affect overall health
+#   pool = only the mergerfs/pool path affects overall health
+#   both = both individual disks and the pool affect health
+#   off  = capacity is displayed but does not affect health
+#
+# Recommended for mergerfs users:
 CAPACITY_HEALTH_SOURCE="pool"
 MERGERFS_POOL_PATH="/storage"
-
 POOL_USAGE_WARN_PERCENT=85
 POOL_USAGE_CRITICAL_PERCENT=95
 
-# Individual disk utilization can still be shown in the report without
-# affecting overall health. Set this to 0 to hide branch-capacity rows.
-REPORT_DISK_CAPACITY_WARNINGS=0
-
-# These thresholds are used when disk capacity reporting is enabled and when
-# CAPACITY_HEALTH_SOURCE is "disk" or "both".
+# Individual branch utilization can still be displayed without turning the
+# report orange when CAPACITY_HEALTH_SOURCE is pool or off.
 DISK_USAGE_WARN_PERCENT=85
 DISK_USAGE_CRITICAL_PERCENT=95
+REPORT_DISK_CAPACITY_WARNINGS=1
 
 DISK_TEMP_WARN_C=40
 DISK_TEMP_CRITICAL_C=50
-
 SCRUB_AGE_WARN_DAYS=30
 SCRUB_AGE_CRITICAL_DAYS=60
-
 UNSCRUBBED_WARN_PERCENT=50
 UNSCRUBBED_CRITICAL_PERCENT=80
-
-# Warn only when a cumulative SMART error count increases.
+# SMART error counters are usually cumulative. "delta" records a baseline and
+# only changes overall health when a count increases on a later run.
+# Options: delta | threshold | off
 SMART_ERROR_HEALTH_MODE="delta"
+SMART_ERROR_WARN_COUNT=1
 SMART_ERROR_DELTA_WARN_COUNT=1
 
-# Used only with SMART_ERROR_HEALTH_MODE="threshold".
-SMART_ERROR_WARN_COUNT=1
-
-# Show unchanged historical counts once in Drive Overview.
-# Set to 0 to hide them completely.
+# Show unchanged cumulative counts once in the Drive Overview. They do not
+# affect health or the email subject in delta mode.
 REPORT_HISTORICAL_SMART_ERRORS=1
 
-# Keep ordinary failure estimates informational. Escalate only at the
-# configured failed-disk level.
+# Individual failure-probability behavior:
+#   failure-only = critical only at SMART_FAILED_FP_PERCENT (recommended)
+#   warning      = attention at SMART_FP_WARN_PERCENT
+#   off          = display only
 SMART_FP_HEALTH_MODE="failure-only"
 SMART_FP_WARN_PERCENT=10
 SMART_FAILED_FP_PERCENT=100
 
-# SnapRAID's aggregate failure probability increases with the number of disks.
-# Keep this informational unless you specifically want it to affect severity.
+# Aggregate failure probability increases naturally with the number of disks.
+# Leave informational unless you explicitly want it treated as a warning.
 AGGREGATE_FP_IS_WARNING=0
 
-# Strongly recommended mount validation
-REQUIRED_MOUNTS=(
-  /mnt/disk1
-  /mnt/disk2
-  /mnt/disk3
-  /mnt/parity1
-  /mnt/parity2
-)
+# Send a warning result to Healthchecks for health findings while retaining a
+# successful process exit code when the automation itself completed normally.
+HEALTH_WARNINGS_FAIL_HEALTHCHECK=1
 
-# Optional stronger validation. Remove this entire block when you do not want
-# to verify exact source devices.
-#declare -A EXPECTED_MOUNT_SOURCES=(
-#  ["/mnt/parity1"]="/dev/disk/by-uuid/REPLACE-ME"
-#  ["/mnt/parity2"]="/dev/disk/by-uuid/REPLACE-ME"
-#)
 ```
 
 Adjust the mountpoints, services, email address, disk mount options, and thresholds to match your server.
@@ -691,6 +729,252 @@ This distinction is intentional:
 ```text
 Script execution succeeded
 Array health needs attention
+```
+
+### NTFY: Per-array ntfy notifications
+
+I've added ntfy alerts in this 2.2.0 version. Each worker can publish its own result after health evaluation is complete. This works with:
+
+```bash
+--profile fileserver.env
+```
+
+multiple profiles:
+
+```bash
+--profile media.env --profile archive.env
+```
+
+and `--all`.
+
+Each notification includes:
+
+* Execution result
+* Health result
+* Parity status
+* Added, removed, and updated counts
+* Run duration
+* Primary health finding or note
+* Full server-side log path
+
+### Optional orchestration summary
+
+The parent process can send one final combined message after all selected arrays finish:
+
+```text
+3 arrays: 2 healthy · 0 notice · 1 attention · 0 blocked · 0 critical · 0 failed
+- media: HEALTHY — No active findings
+- archive: ATTENTION — SMART error count increased on d04
+- backup: HEALTHY — No active findings
+```
+
+## Per-array profile configuration
+
+Add this to `/etc/snapraid-helper.d/fileserver.env`:
+
+```bash
+# Enable native ntfy notifications for this array.
+NTFY_ALERTS=1
+
+# ntfy server base URL, without the topic.
+NTFY_URL="https://ntfy.yourdomain.com"
+
+# Topic for this array.
+NTFY_TOPIC="snapraid-fileserver"
+
+# Use a bearer token for protected topics.
+NTFY_TOKEN=""
+
+# Alternatively, use username/password authentication.
+NTFY_USERNAME=""
+NTFY_PASSWORD=""
+
+# all      = every result, including healthy
+# problems = attention, blocked, critical, and failed
+# failures = blocked, critical, and failed only
+# off      = disable delivery
+NTFY_NOTIFY_LEVEL="problems"
+
+NTFY_TIMEOUT_SECS=10
+NTFY_RETRIES=3
+
+# Optional URL opened when the notification is tapped.
+NTFY_CLICK_URL=""
+
+# Allow ntfy to interpret the message as Markdown.
+NTFY_MARKDOWN=1
+```
+
+For a public topic on `ntfy.sh`, this could be as simple as:
+
+```bash
+NTFY_ALERTS=1
+NTFY_URL="https://ntfy.sh"
+NTFY_TOPIC="your-private-hard-to-guess-topic"
+NTFY_NOTIFY_LEVEL="problems"
+```
+
+## Authentication
+
+Bearer token:
+
+```bash
+NTFY_TOKEN="tk_your_token_here"
+NTFY_USERNAME=""
+NTFY_PASSWORD=""
+```
+
+Basic authentication:
+
+```bash
+NTFY_TOKEN=""
+NTFY_USERNAME="zack"
+NTFY_PASSWORD="your-password"
+```
+
+**Note:** The token takes precedence when both are configured.
+
+## Notification levels
+
+### Notify for every run
+
+```bash
+NTFY_NOTIFY_LEVEL="all"
+```
+
+Sends healthy, notice, attention, blocked, critical, and failed results.
+
+### Notify only when something needs attention
+
+```bash
+NTFY_NOTIFY_LEVEL="problems"
+```
+
+Sends:
+
+* Attention
+* Sync blocked
+* Critical
+* Failed
+
+This is what I'd use by default.
+
+### Notify only for serious results
+
+```bash
+NTFY_NOTIFY_LEVEL="failures"
+```
+
+Sends:
+
+* Sync blocked
+* Critical
+* Failed
+
+### Disable without removing settings
+
+```bash
+NTFY_NOTIFY_LEVEL="off"
+```
+
+## Combined multi-array summary
+
+Add these settings to the **first profile passed on the command line**:
+
+```bash
+NTFY_SUMMARY_ALERTS=1
+
+NTFY_SUMMARY_URL="https://ntfy.yourdomain.com"
+NTFY_SUMMARY_TOPIC="snapraid-summary"
+
+NTFY_SUMMARY_TOKEN=""
+NTFY_SUMMARY_USERNAME=""
+NTFY_SUMMARY_PASSWORD=""
+
+NTFY_SUMMARY_NOTIFY_LEVEL="all"
+
+NTFY_SUMMARY_TIMEOUT_SECS=10
+NTFY_SUMMARY_RETRIES=3
+NTFY_SUMMARY_CLICK_URL=""
+```
+
+For example:
+
+```bash
+/usr/local/sbin/snapraid-helper.sh \
+  --profile /etc/snapraid-helper.d/media.env \
+  --profile /etc/snapraid-helper.d/archive.env
+```
+
+The `media.env` profile supplies the orchestration-summary settings because it is listed first. Each profile still controls its own per-array ntfy notification.
+
+## Avoiding duplicate notifications
+
+You have several useful combinations.
+
+### Per-array messages only
+
+```bash
+NTFY_ALERTS=1
+NTFY_NOTIFY_LEVEL="problems"
+
+NTFY_SUMMARY_ALERTS=0
+```
+
+### One summary only
+
+In every array profile:
+
+```bash
+NTFY_ALERTS=0
+```
+
+In the first profile:
+
+```bash
+NTFY_SUMMARY_ALERTS=1
+NTFY_SUMMARY_NOTIFY_LEVEL="all"
+```
+
+### Problem messages plus one summary
+
+```bash
+NTFY_ALERTS=1
+NTFY_NOTIFY_LEVEL="problems"
+
+NTFY_SUMMARY_ALERTS=1
+NTFY_SUMMARY_NOTIFY_LEVEL="all"
+```
+
+This sends immediate per-array problems and one final summary.
+
+## Severity mapping
+
+| SnapRAID result | ntfy priority | Tags                             |
+| --------------- | ------------- | -------------------------------- |
+| Healthy         | Default       | `white_check_mark,floppy_disk`   |
+| Notice          | Default       | `information_source,floppy_disk` |
+| Attention       | High          | `warning,floppy_disk`            |
+| Sync blocked    | High          | `warning,shield`                 |
+| Critical        | Urgent        | `rotating_light,floppy_disk`     |
+| Failed          | Urgent        | `rotating_light,x`               |
+
+Historical SMART counts that have not increased do not create an attention notification when your existing delta-mode settings are active.
+
+## `--all` behavior
+
+With direct configs discovered through:
+
+```bash
+snapraid-helper.sh --all --config-dir /etc/snapraid.d
+```
+
+all workers use the ntfy defaults embedded in the main script unless you customize those defaults. For distinct topics, tokens, or thresholds per array, profiles remain the better approach:
+
+```bash
+snapraid-helper.sh \
+  --profile /etc/snapraid-helper.d/media.env \
+  --profile /etc/snapraid-helper.d/archive.env
 ```
 
 ## Test Profile Selection
