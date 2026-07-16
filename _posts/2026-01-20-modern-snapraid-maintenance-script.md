@@ -5,7 +5,7 @@ date: 2026-07-14
 categories: [homelab, snapraid, storage, linux]
 tags: [snapraid, split parity, docker, monitoring, bash]
 description: "Install and configure a defensive SnapRAID maintenance script with multi-config support, Docker service coordination, mount validation, threshold-based sync protection, health-aware HTML reports, and Healthchecks monitoring."
-image: /wp-content/uploads/images/snapraid-report.webp
+image: /wp-content/uploads/images/snapraid-report2.webp
 ---
 
 For the last several years, I have used a Bash script to automate routine maintenance on my SnapRAID array.

@@ -4,7 +4,7 @@ title: "Wireguard fails to work on one host"
 date: 2026-06-04
 categories: [homelab, vpn]
 tags: [wireguard, vpn, homelab, linux]
-image: /wp-content/uploads/images/wireguard/wireguard_cover_image.png
+image: /wp-content/uploads/images/wireguard/wireguard_cover_image2.webp
 ---
 
 # When Docker Breaks WireGuard: A Sneaky UniFi VPN Routing Conflict
