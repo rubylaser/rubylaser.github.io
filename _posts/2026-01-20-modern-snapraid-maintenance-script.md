@@ -69,7 +69,7 @@ A normal run can perform the following workflow:
 16. Save a complete diagnostic log.
 17. Send a health-aware HTML email.
 18. Notify Healthchecks or a compatible endpoint.
-19. Notify via Ntfy for one our multiple configs.
+19. Notify via Ntfy for one or multiple configs.
 
 ## Major Features
 
