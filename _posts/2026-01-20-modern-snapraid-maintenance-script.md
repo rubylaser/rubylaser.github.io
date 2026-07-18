@@ -47,7 +47,7 @@ snapraid-helper.sh 2.2.0
 
 ## What the Script Does
 
-First, let me start by saying this is going to be a very long post. This script can do a lot more than the previous version and builds in a bunch of extra reliability checks and features. 
+First, let me start by saying this is going to be a very long post. This script can do a lot more than the previous version and builds in a bunch of extra reliability checks and features.
 
 A normal run can perform the following workflow:
 
@@ -69,6 +69,7 @@ A normal run can perform the following workflow:
 16. Save a complete diagnostic log.
 17. Send a health-aware HTML email.
 18. Notify Healthchecks or a compatible endpoint.
+19. Notify via Ntfy for one our multiple configs.
 
 ## Major Features
 
@@ -691,7 +692,7 @@ The baseline is stored at:
 To intentionally reset all baselines:
 
 ```bash
-find /var/lib/snapraid-helper   -name smart-error-baseline.tsv   -delete
+find /var/lib/snapraid-helper -name smart-error-baseline.tsv -delete
 ```
 
 The next run establishes a fresh baseline. **Do not reset it routinely, because that discards the history needed to identify increases.**
