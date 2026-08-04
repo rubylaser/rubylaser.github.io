@@ -8,7 +8,7 @@ excerpt: "I found Silo in a Reddit thread and had it running the same night. Her
 image: /wp-content/uploads/images/silo_landing.jpg
 ---
 
-I found Silo in a Reddit comment. Not even the post itself, a comment, three replies deep, in a thread about why Jellyfin gets sluggish once your library crosses some invisible threshold. Someone said "it was the superhero we deserved" and linked a GitHub repo with nine stars and no tagged releases.
+I found Silo in a Reddit comment. Not even the post itself, a comment, three replies deep, in a thread about why Jellyfin gets sluggish once your library crosses some invisible threshold. Someone said "it was the superhero we deserved" and linked a [GitHub repo](https://github.com/Silo-Server/silo-server) with nine stars (almost 160 now) and no tagged releases.
 
 ## The itch I was scratching
 
