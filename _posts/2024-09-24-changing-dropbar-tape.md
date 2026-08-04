@@ -2,7 +2,7 @@
 title: "Upgrading My Canyon Endurace CF7: New Dropbar and Bartape"
 date: 2024-09-24
 image: /wp-content/uploads/2024/09/IMG_5345.webp
-categories: [Bike Upgrades, Gravel Riding]
+categories: [cycling, bike-upgrades, gravel-riding]
 tags: [Canyon Endurace, Dropbar, Bike Maintenance]
 ---
 

@@ -2,6 +2,7 @@
 layout: post
 title: "Exploring My Strava Stats"
 date: 2025-09-15
+categories: [cycling, self-hosting]
 tags:
   - cycling
   - strava

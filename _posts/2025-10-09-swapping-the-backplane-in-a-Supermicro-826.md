@@ -2,6 +2,7 @@
 layout: post
 title: "Upgrading My JBOD 826 Case to a SAS3 Backplane"
 date: 2025-10-09
+categories: [homelab, storage]
 tags:
   - homelab
   - storage

@@ -2,7 +2,7 @@
 title: "Cycling Together: Strengthening Bonds with Friends and Family"
 date: 2024-07-15
 image: /wp-content/uploads/images/cycling-together/zack-on-a-ride.jpg
-categories: biking
+categories: [cycling]
 tags: cycling family friends outdoor-activities
 ---
 

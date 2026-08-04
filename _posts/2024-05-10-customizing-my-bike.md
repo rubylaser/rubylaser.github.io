@@ -3,7 +3,7 @@ layout: post
 title: "Customizing My Bike: Transforming the Endurace into a Light Gravel Bike"
 date: 2024-05-10
 image: /wp-content/uploads/images/cycling-upgrades/bike_on_the_trail.jpg
-categories: cycling
+categories: [cycling, bike-upgrades]
 tags: [cycling, bike customization, gravel biking, personalization]
 ---
 

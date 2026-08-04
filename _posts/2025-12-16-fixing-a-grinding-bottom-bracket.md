@@ -2,7 +2,7 @@
 layout: post
 title: "From Token Ninja to BB Infinite: Finally Solving My Press Fit Bottom Bracket"
 date: 2025-12-16
-categories: [Bike Upgrades, Gravel Riding]
+categories: [cycling, bike-upgrades, gravel-riding]
 tags: [Canyon Endurace, Bottom Bracket, Repairs]
 image: /wp-content/uploads/images/bb-infinite/bb_infinite_installed.webp
 ---

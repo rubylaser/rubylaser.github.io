@@ -2,7 +2,7 @@
 layout: post
 title: "Setting Up Silo: A Faster Media Server for People With Too Many Files"
 date: 2026-08-04 09:00:00 -0500
-categories: selfhosted homelab
+categories: [self-hosting, homelab]
 tags: [silo, jellyfin, plex, docker, traefik, garage, s3, nvidia, media-server]
 excerpt: "I found Silo in a Reddit thread and had it running the same night. Here's the full Docker Compose setup, including the four things that broke along the way."
 image: /wp-content/uploads/images/silo_landing.jpg
