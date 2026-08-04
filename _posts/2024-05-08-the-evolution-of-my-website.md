@@ -2,7 +2,7 @@
 layout: post
 title: "The Evolution of My Website: From Rails to Jekyll"
 date: 2024-05-08
-image: /wp-content/uploads/2024/05/rails_to_wordpress_to_jekyll.jpg
+image: /wp-content/uploads/images/website_transition.png
 categories: web-development
 tags: [web-development, ruby on rails, wordpress, jekyll, static sites, gitHub pages]
 ---
