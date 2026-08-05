@@ -287,13 +287,13 @@ services:
 
 Skip this file and drop `COMPOSE_FILE` from `.env` if you're CPU-only.
 
-## 6a. Object storage, kept at home
+### 6. Object storage, kept at home
 
 Silo wants S3-compatible storage for client-facing assets: artwork, chapter thumbnails, subtitles. Not media, just generated stuff. You can leave it blank for a basic install, but chapter thumbnails are rejected at library creation without it, and I wanted chapter thumbnails.
 
 I'm not sending my poster art to a cloud provider to serve it back to devices on my own LAN. The docs' preferred self-hosted option is Garage, which is a small S3-compatible object store built for exactly this scale.
 
-### 6. `garage/garage.toml`
+### 7. `garage/garage.toml`
 
 Paste your generated secrets into the three placeholders:
 
@@ -333,7 +333,7 @@ admin_token   = "CHANGE_ME_openssl_rand_base64_32"
 metrics_token = "CHANGE_ME_openssl_rand_base64_32"
 ```
 
-### 7. Start it
+### 8. Start it
 
 ```bash
 docker compose config -q     # validates YAML before anything tries to run
@@ -366,7 +366,7 @@ restart:
 docker compose restart postgres
 ```
 
-### 8. Initialize Garage
+### 9. Initialize Garage
 
 A fresh Garage node has no cluster layout and refuses writes until it gets one.
 Skip this and Silo's S3 errors look like a credentials problem.
@@ -392,7 +392,7 @@ Capacity is a declared budget, not an allocation. 100G is plenty for artwork.
 
 One more from Garage's own best-practices page, which I nearly missed: LMDB metadata has a habit of corrupting after unclean shutdowns. On a home server that means a power blip. Set `metadata_auto_snapshot_interval = "6h"` in `garage.toml`, or switch `db_engine` to `sqlite` if you'd rather trade a little speed for durability. At poster-art volume you won't notice the difference.
 
-### 9. Point Silo at Garage
+### 10. Point Silo at Garage
 
 In the setup wizard's storage step, under Public Assets:
 
@@ -422,7 +422,7 @@ override to the `silo` service:
       - "s3.example.com:192.168.1.10"   # your host's LAN IP
 ```
 
-### 10. Add libraries
+### 11. Add libraries
 
 Container paths, not host paths:
 
