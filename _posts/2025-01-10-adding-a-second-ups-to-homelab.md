@@ -1,7 +1,7 @@
 ---
 title: "Adding a Second UPS to my homelab"
 date: 2025-01-10
-image: /wp-content/uploads/images/UPS-setup.webp
+image: /wp-content/uploads/images/2nd_ups.png
 categories: [linux, proxmox, ups, homelab]
 tags: [nut, apcupsd, truenas, homelab]
 ---
