@@ -1,22 +1,28 @@
 #!/usr/bin/env bash
 # shellcheck shell=bash
 #
-# snapraid-helper.sh
+# snapraid-helper.sh — a defensive SnapRAID maintenance orchestrator
 #
-# A defensive SnapRAID maintenance orchestrator with support for one or more
-# SnapRAID configuration files.
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Zack Reed <https://zackreed.me>
 #
-# Design overview
-# ---------------
-# * Orchestrator mode owns the global lock and shared Docker service lifecycle.
-# * Worker mode handles exactly one SnapRAID configuration in a fresh process.
-# * Per-config state, logs, locks, Healthchecks, and ntfy settings are isolated.
-# * Workers can publish per-array ntfy results; the orchestrator can publish one summary.
-# * SnapRAID `diff` exit code 2 is treated as normal (differences found).
-# * Safety-threshold blocks return exit code 2; operational failures return 1.
-# * Persistent warning counters live under /var/lib, not /tmp.
-# * Temporary files are always removed by an EXIT trap.
-# * Mount validation can verify mountpoints and optional expected source devices.
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 #
 # Exit codes
 # ----------
